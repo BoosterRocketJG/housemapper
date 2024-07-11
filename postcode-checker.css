@@ -1,5 +1,6 @@
 form {
-    border: none;
+    border-style: solid;
+    border-width: 10px;
     padding: 50px;
     height: 100%;
     width: 100%;
