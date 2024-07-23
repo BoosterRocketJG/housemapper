@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Example</title>
+    <style>
+        #message {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <form id="myForm">
+        <label for="inputField" id="inputLabel">Loading...</label>
+        <input type="text" id="inputField" name="inputField" maxlength="4" oninput="validateInput()" required>
+        <button type="submit" id="submitButton">Loading...</button>
+    </form>
+
+    <div id="result"></div>
+    <h3 id="message">Loading...</h3>
+
+    <script src="script.js"></script>
+</body>
+</html>

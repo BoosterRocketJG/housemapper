@@ -1,0 +1,18 @@
+{
+    "inputLabel": {
+        "text": "Enter Text (4 characters max):",
+        "reference": "Label for the input field"
+    },
+    "submitButton": {
+        "text": "Go",
+        "reference": "Text for the submit button"
+    },
+    "entryExists": {
+        "text": "The entry exists in the JSON file.",
+        "reference": "Message displayed when the entry is found"
+    },
+    "entryNotExists": {
+        "text": "Sorry, we don't serve your area yet",
+        "reference": "Message displayed when the entry is not found"
+    }
+}
