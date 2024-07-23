@@ -1,6 +1,6 @@
 {
     "inputLabel": {
-        "text": "Enter Text (4 characters max):",
+        "text": "What is the first half of your UK postcode?",
         "reference": "Label for the input field"
     },
     "submitButton": {
@@ -8,7 +8,7 @@
         "reference": "Text for the submit button"
     },
     "entryExists": {
-        "text": "The entry exists in the JSON file.",
+        "text": "Good news! We are available in your area. Please proceed for a quote and online booking.",
         "reference": "Message displayed when the entry is found"
     },
     "entryNotExists": {
