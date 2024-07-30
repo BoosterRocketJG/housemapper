@@ -1,0 +1,18 @@
+{
+    "inputLabel": {
+        "text": "What is the first half of your UK postcode?",
+        "reference": "Label for the input field"
+    },
+    "submitButton": {
+        "text": "Go",
+        "reference": "Text for the submit button"
+    },
+    "entryExists": {
+        "text": "Good news! We are available in your area. Please proceed for a quote and online booking.",
+        "reference": "Message displayed when the entry is found"
+    },
+    "entryNotExists": {
+        "text": "Sorry, we don't serve your area yet",
+        "reference": "Message displayed when the entry is not found"
+    }
+}
