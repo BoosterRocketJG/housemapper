@@ -1,6 +1,5 @@
 form {
-    border-style: solid;
-    border-width: 10px;
+    border: none;
     padding: 50px;
     height: 100%;
     width: 100%;
@@ -32,7 +31,7 @@ form {
     }
     
     #submitButton {
-        display: block;
+        display: none;
         background-color: rgb(77, 81, 84);
         padding: 10px;
         margin-left: 20px;
