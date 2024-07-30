@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Sheets Data Fetcher</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #data {
+            margin-top: 20px;
+        }
+        .row {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+        .cell {
+            flex: 1;
+            padding: 5px 10px;
+        }
+        .header {
+            font-weight: bold;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Google Sheets Data Fetcher</h1>
+    <form id="fetch-form">
+        <label for="key">Key:</label>
+        <input type="text" id="key" name="key" required>
+        <button type="submit">Fetch Data</button>
+    </form>
+    <div id="data"></div>
+    <script>
+        document.getElementById('fetch-form').addEventListener('submit', async function (event) {
+            event.preventDefault();
+            const key = document.getElementById('key').value;
+            const response = await fetch(`/.netlify/functions/fetchData?key=${key}`);
+            const data = await response.json();
+            displayData(data);
+        });
+
+        function displayData(data) {
+            const dataDiv = document.getElementById('data');
+            dataDiv.innerHTML = ''; // Clear previous data
+
+            if (data.length > 0) {
+                // Create header row
+                const headerRow = document.createElement('div');
+                headerRow.className = 'row header';
+
+                data[0].forEach((header) => {
+                    const headerCell = document.createElement('div');
+                    headerCell.className = 'cell';
+                    headerCell.textContent = header;
+                    headerRow.appendChild(headerCell);
+                });
+
+                dataDiv.appendChild(headerRow);
+
+                // Create data rows
+                data.forEach((row, index) => {
+                    if (index === 0) return; // Skip header row
+
+                    const dataRow = document.createElement('div');
+                    dataRow.className = 'row';
+
+                    row.forEach((cell) => {
+                        const dataCell = document.createElement('div');
+                        dataCell.className = 'cell';
+                        dataCell.textContent = cell;
+                        dataRow.appendChild(dataCell);
+                    });
+
+                    dataDiv.appendChild(dataRow);
+                });
+            } else {
+                dataDiv.textContent = 'No matching data found.';
+            }
+        }
+    </script>
+</body>
+</html>
+
