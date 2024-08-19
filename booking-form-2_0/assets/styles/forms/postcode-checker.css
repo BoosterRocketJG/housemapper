@@ -19,9 +19,33 @@ form {
     .message {
         margin-top: 10px;
         font-weight: bold;
-        padding: 20px;
+        position: relative;
+        left: -10px;
+        padding: 0px;
+        opacity: 0;
+        transform: scale(0.95);
+        transition: opacity 500ms ease-in-out;
     }
     
+    .message.show {
+        opacity: 1;
+        animation: bounce 500ms ease-in-out;
+    }
+    
+    @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {
+            transform: scale(0.95);
+        }
+        40% {
+            transform: scale(1.1);
+        }
+        60% {
+            transform: scale(1.05);
+        }
+    }
+    .message.show {
+        opacity: 1;
+    }
     .accept {
         color: rgb(27, 115, 85);
     }
