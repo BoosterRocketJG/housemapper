@@ -1,5 +1,18 @@
 {
-    "exactMatch": "Congratulations! We can scan your property. Please proceed to book.",
-    "noCoverage": "I'm sorry, we don't cover that area yet.",
-    "emptyMessage": ""
+    "exactMatch": {
+        "text": "Congratulations! We can scan your property. Please proceed to book.",
+        "reference": "Message displayed when a valid postcode is entered"
+    },
+    "noCoverage": {
+        "text": "I'm sorry, we don't cover that area yet.",
+        "reference": "Message displayed when an invalid postcode is entered"
+    },
+    "emptyMessage": {
+        "text": "",
+        "reference": "Message displayed when the input is empty or too short"
+    },
+    "inputLabel": {
+        "text": "What is the first half of your UK postcode?",
+        "reference": "Label for the input field"
+    }
 }
