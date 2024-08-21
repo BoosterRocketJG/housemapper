@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Square Meterage</title>
+    <link rel="stylesheet" href="../assets/styles/forms/form-styles.css">
+</head>
+<body>
+    <form id="meterageForm">
+        <h1 id="questionTitle">What is the square meterage?</h1>
+
+        <!-- Toggle Switch -->
+        <div class="toggle-container">
+            <div class="toggle-switch">
+                <div id="metricToggle" class="toggle-option metric active">Metric</div>
+                <div id="imperialToggle" class="toggle-option imperial">Imperial</div>
+            </div>
+        </div>
+
+        <!-- Input Field -->
+        <div class="input-container">
+            <input type="number" id="meterageInput" name="meterage" min="0" step="1" placeholder="Enter the square meterage" required>
+            <span id="unitSuffix" class="suffix">m²</span>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" id="submitButton">Proceed</button>
+    </form>
+
+    <script src="../assets/scripts/forms/step-6.js"></script>
+</body>
+</html>

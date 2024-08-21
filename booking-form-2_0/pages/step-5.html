@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Square Meterage</title>
+    <link rel="stylesheet" href="../assets/styles/forms/form-styles.css">
+</head>
+<body>
+    <form id="meterageForm">
+        <h1>Do you know the rough square meterage of your property?</h1>
+        <div class="options">
+            <div class="option" data-next-step="step-6.html">
+                <label>Yes</label>
+            </div>
+            <div class="option" data-next-step="step-9.html">
+                <label>No</label>
+            </div>
+        </div>
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const options = document.querySelectorAll('.option');
+
+            options.forEach(option => {
+                option.addEventListener('click', function() {
+                    const nextStep = option.getAttribute('data-next-step');
+                    window.location.href = nextStep;
+                });
+            });
+        });
+    </script>
+</body>
+</html>

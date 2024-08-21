@@ -55,6 +55,15 @@ document.addEventListener('DOMContentLoaded', function() {
                             submitButton.classList.remove('show');
                         }
                     });
+
+                    // Add event listener for form submission to proceed to the next step
+                    submitButton.addEventListener('click', function(event) {
+                        event.preventDefault(); // Prevent the default form submission
+                        var value = inputField.value.replace(/\s+/g, '').toUpperCase();
+                        if (acceptedEntries.includes(value)) {
+                            window.location.href = 'step-2-space-type.html'; // Redirect to Step 2
+                        }
+                    });
                 })
                 .catch(error => {
                     console.error('Error fetching the approved postcodes:', error);

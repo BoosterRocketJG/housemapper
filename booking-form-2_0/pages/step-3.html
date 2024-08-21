@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number of Floors/Storeys</title>
+    <link rel="stylesheet" href="../assets/styles/forms/form-styles.css">
+</head>
+<body>
+    <form id="floorsForm">
+        <h1>How many floors/storeys need to be scanned?</h1>
+        <div class="input-container">
+            <input type="number" id="floorsInput" name="floors" min="1" placeholder="Enter a number" required>
+        </div>
+        <button type="submit" id="submitButton">Proceed</button>
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const floorsInput = document.getElementById('floorsInput');
+
+            // Restrict input to numbers only
+            floorsInput.addEventListener('input', function() {
+                if (floorsInput.value.length > 0 && isNaN(floorsInput.value)) {
+                    floorsInput.value = floorsInput.value.replace(/[^0-9]/g, '');
+                }
+            });
+
+            // Handle form submission
+            document.getElementById('floorsForm').addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent the default form submission behavior
+
+                // Check if the input is valid
+                if (floorsInput.value >= 1 && !isNaN(floorsInput.value)) {
+                    // Redirect to step 4
+                    window.location.href = 'step-4.html';
+                } else {
+                    // Handle invalid input
+                    alert('Please enter a valid number of floors/storeys.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
