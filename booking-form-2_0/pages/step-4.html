@@ -3,44 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Select Space Type</title>
-    <link rel="stylesheet" href="../assets/styles/forms/space-type.css">
+    <title>Number of Floors/Storeys</title>
+    <link rel="stylesheet" href="../assets/styles/forms/form-styles.css">
 </head>
 <body>
-    <form id="spaceTypeForm">
-        <h1>What type of space do you need us to scan?</h1>
-        <div class="options">
-            <div class="option" data-next-step="step-4.html">
-                <img src="https://storage.googleapis.com/buildship-02sfka-europe-west1/Form Icons/House.webp" alt="Residential House">
-                <label>Residential House</label>
-            </div>
-            <div class="option" data-next-step="step-4.html">
-                <img src="https://storage.googleapis.com/buildship-02sfka-europe-west1/Form Icons/Building.webp" alt="Residential Flat">
-                <label>Residential Flat</label>
-            </div>
-            <div class="option" data-next-step="step-3.html">
-                <img src="https://storage.googleapis.com/buildship-02sfka-europe-west1/Form Icons/Office.webp" alt="Office">
-                <label>Office</label>
-            </div>
-            <div class="option" data-next-step="step-7.html">
-                <img src="https://storage.googleapis.com/buildship-02sfka-europe-west1/Form Icons/Plaza.webp" alt="Commercial Space">
-                <label>Commercial Space</label>
-            </div>
-            <div class="option" data-next-step="step-7.html">
-                <img src="https://storage.googleapis.com/buildship-02sfka-europe-west1/Form Icons/Factory.webp" alt="Industrial Site">
-                <label>Industrial Site</label>
-            </div>
-            <div class="option" data-next-step="step-7.html">
-                <img src="https://storage.googleapis.com/buildship-02sfka-europe-west1/Form Icons/Cement.webp" alt="Building Site">
-                <label>Building Site</label>
-            </div>
-            <div class="option" data-next-step="step-7.html">
-                <img src="https://storage.googleapis.com/buildship-02sfka-europe-west1/Form Icons/Lighthouse.webp" alt="Other">
-                <label>Other</label>
-            </div>
+    <form id="floorsForm">
+        <h1>How many rooms need to be scanned?</h1>
+        <div class="input-container">
+            <input type="number" id="floorsInput" class="integer-input" name="floors" min="1" placeholder="Enter a number" required>
         </div>
+        <button type="submit" id="submitButton">Proceed</button>
     </form>
 
-    <script src="../assets/scripts/forms/space-type.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const floorsInput = document.getElementById('floorsInput');
+
+            // Restrict input to numbers only
+            floorsInput.addEventListener('input', function() {
+                if (floorsInput.value.length > 0 && isNaN(floorsInput.value)) {
+                    floorsInput.value = floorsInput.value.replace(/[^0-9]/g, '');
+                }
+            });
+
+            // Handle form submission
+            document.getElementById('floorsForm').addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent the default form submission behavior
+
+                // Check if the input is valid
+                if (floorsInput.value >= 1 && !isNaN(floorsInput.value)) {
+                    // Redirect to step 4
+                    window.location.href = 'step-4.html';
+                } else {
+                    // Handle invalid input
+                    alert('Please enter a valid number of floors/storeys.');
+                }
+            });
+        });
+    </script>
 </body>
 </html>

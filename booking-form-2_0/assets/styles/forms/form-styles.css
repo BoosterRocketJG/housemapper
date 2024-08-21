@@ -64,19 +64,32 @@ h1 {
     margin-bottom: 20px;
 }
 
-/* Numeric Input Styling */
-input[type="number"] {
+/* Integer Input Styling for Steps 3 and 4 */
+.integer-input {
     padding: 10px;
     font-size: 16px;
     width: 100%;
+    max-width: 300px;
     box-sizing: border-box;
     border-radius: 5px;
     border: 1px solid #ccc;
-    padding-right: 50px; /* Adjust padding to accommodate suffix */
 }
 
-/* Suffix styling for input */
-.input-container .suffix {
+/* Decimal Input Styling for Step 6 */
+.decimal-input {
+    padding: 10px;
+    font-size: 16px;
+    width: 100%;
+    max-width: 300px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding-right: 50px; /* Padding to accommodate the suffix */
+    position: relative;
+}
+
+/* Suffix styling for decimal input */
+.decimal-input-container .suffix {
     position: absolute;
     right: 10px;
     top: 50%;
@@ -129,6 +142,7 @@ input[type="number"] {
     background-color: #ccc;
     color: black;
 }
+
 /* Multi-Select Container */
 .multi-select-container {
     display: flex;
@@ -166,15 +180,6 @@ form p {
     font-size: 14px;
     color: #555;
 }
-
-
-/* Form Text Styling */
-form p {
-    margin-bottom: 15px;
-    font-size: 14px;
-    color: #555;
-}
-
 
 /* Submit Button Styling */
 button {
