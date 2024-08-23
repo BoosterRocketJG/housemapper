@@ -48,7 +48,10 @@ h1 {
     font-size: 16px;
     color: #333;
 }
-
+/* Italicize Placeholder Text */
+input::placeholder {
+    font-style: italic;
+}
 /* Option Hover Effect */
 .option:hover {
     transform: scale(1.05);
@@ -69,10 +72,19 @@ h1 {
     padding: 10px;
     font-size: 16px;
     width: 100%;
-    max-width: 300px;
+    max-width: 90px;
     box-sizing: border-box;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border-style: none;
+    background-color: #f1f2f1;
+}
+
+/* Decimal Input Container Styling for Step 6 */
+.decimal-input-container {
+    position: relative;
+    display: inline-block;
+    width: 120px;
+    max-width: 300px;
 }
 
 /* Decimal Input Styling for Step 6 */
@@ -80,12 +92,11 @@ h1 {
     padding: 10px;
     font-size: 16px;
     width: 100%;
-    max-width: 300px;
     box-sizing: border-box;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border-style: none;
+    background-color: #f1f2f1;
     padding-right: 50px; /* Padding to accommodate the suffix */
-    position: relative;
 }
 
 /* Suffix styling for decimal input */
@@ -98,6 +109,7 @@ h1 {
     color: #555;
     pointer-events: none; /* Ensure it's not clickable */
 }
+
 
 /* Toggle Switch Container */
 .toggle-container {
@@ -185,7 +197,7 @@ form p {
 button {
     padding: 10px 20px;
     font-size: 16px;
-    background-color: #007bff;
+    background-color: #1a5b49;
     color: white;
     border: none;
     border-radius: 5px;
