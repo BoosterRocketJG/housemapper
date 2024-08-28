@@ -102,8 +102,9 @@ box-shadow: 8px 10px 17px -6px rgba(0,0,0,0.75);
   border-radius: 30px;
   max-height: 500px; /* Set the maximum height */
   overflow-y: auto;  /* Scroll when the maximum height is reached */
-  resize: vertical;      /* Disable manual resizing */
-  min-height: 100%;
+  resize: none;      /* Disable manual resizing */
+  min-height: 100px;
+  max-height: 500px;
   min-width: 80%;
 }
 

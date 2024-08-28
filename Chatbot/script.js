@@ -20,9 +20,10 @@ const form = phone.querySelector('.phone__form');
 const input = document.querySelector('.phone__form input');
 
 input.addEventListener('input', function() {
-    this.style.height = 'auto'; // Reset height
-    this.style.height = Math.min(this.scrollHeight, 300) + 'px'; // Expand up to 300px
+    this.style.height = 'auto'; // Reset the height
+    this.style.height = Math.min(this.scrollHeight, 500) + 'px'; // Expand up to 500px
 });
+
 
 
 // on submit retrieve the value from the nested input element and add the text in the chat section
