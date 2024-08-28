@@ -80,7 +80,7 @@ box-shadow: 8px 10px 17px -6px rgba(0,0,0,0.75);
 .phone__form {
   margin-top: 1rem;
   display: flex;
-  align-items: center;
+  align-items: laeft;
   background: hsla(231, 12%, 86%, 0.1);
   border-radius: 30px;
   padding: 1rem 0.75rem;
@@ -100,7 +100,13 @@ box-shadow: 8px 10px 17px -6px rgba(0,0,0,0.75);
   padding: 1rem 1.25rem;
   padding-left: 1rem;
   border-radius: 30px;
+  max-height: 500px; /* Set the maximum height */
+  overflow-y: auto;  /* Scroll when the maximum height is reached */
+  resize: vertical;      /* Disable manual resizing */
+  min-height: 100%;
+  min-width: 80%;
 }
+
 .phone__form input::placeholder {
   color: inherit;
   opacity: 0.6;
@@ -112,7 +118,7 @@ gradient added though a pseudo element
 .phone__form button {
   margin-left: 1rem;
   border: none;
-  border-radius: 50%;
+  border-radius: 100%;
   background: none;
   width: 38px;
   height: 38px;
@@ -122,6 +128,7 @@ gradient added though a pseudo element
   */
   background: linear-gradient(to right, #075d4a, #06773d, #075d4a);
   position: relative;
+  top: 10px;
 }
 .phone__form button svg {
   width: 100%;
