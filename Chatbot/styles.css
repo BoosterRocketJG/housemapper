@@ -89,26 +89,25 @@ box-shadow: 8px 10px 17px -6px rgba(0,0,0,0.75);
 }
 
 /* have the input occupy the available space, without squishing the svg icon */
-.phone__form input {
+.phone__form textarea {
   flex-grow: 1;
-  width: 0;
   font-family: inherit;
   color: inherit;
   background: none;
   border: none;
   font-size: 1.25rem;
+  margin: 10px 0px 10px 10px;
   padding: 1rem 1.25rem;
   padding-left: 1rem;
   border-radius: 30px;
-  max-height: 500px; /* Set the maximum height */
   overflow-y: auto;  /* Scroll when the maximum height is reached */
   resize: none;      /* Disable manual resizing */
   min-height: 100px;
   max-height: 500px;
-  min-width: 80%;
+  max-width: 600px;
 }
 
-.phone__form input::placeholder {
+.phone__form textarea::placeholder {
   color: inherit;
   opacity: 0.6;
 }
@@ -129,7 +128,7 @@ gradient added though a pseudo element
   */
   background: linear-gradient(to right, #075d4a, #06773d, #075d4a);
   position: relative;
-  top: 10px;
+  top: 40px;
 }
 .phone__form button svg {
   width: 100%;

@@ -17,7 +17,7 @@ window.addEventListener('mousemove', (e) => {
 // target the form element
 const form = phone.querySelector('.phone__form');
 
-const input = document.querySelector('.phone__form input');
+const input = document.querySelector('.phone__form textarea');
 
 input.addEventListener('input', function() {
     this.style.height = 'auto'; // Reset the height
