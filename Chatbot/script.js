@@ -11,7 +11,7 @@ window.addEventListener('mousemove', (e) => {
   const { pageX, pageY } = e;
   const [diffX, diffY] = [centerX - pageX, centerY - pageY];
   // ! maintain the default translateZ property
-  phone.style.transform = `translateZ(-180px) rotateX(${diffY / 120}deg) rotateY(${-diffX / 120}deg)`;
+  phone.style.transform = `translateZ(-180px) rotateX(${diffY / 180}deg) rotateY(${-diffX /180}deg)`;
 });
 
 // target the form element

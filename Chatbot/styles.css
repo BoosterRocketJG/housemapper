@@ -12,22 +12,22 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  padding: 1rem;
+  padding: 0rem;
   color: #fff;
-  background: #2d2e40;
+  background: #012b1b;
   /* perspective for the 3D transform properties */
-  perspective: 1000px;
+  perspective: 5000px;
 }
 
 /* fix the width of the wrapping container,
  the height is fixed for the section devoted to the chat, to crop out additional text messages
 */
 .phone {
-  width: 800px;
+  width: 100%;
   font-size: 1.2rem;
   font-family: "Megrim", sans-serif;
-  background: hsla(231, 12%, 86%, 0.1);
-  padding: 1.5rem 1rem;
+  background: hsla(172, 75%, 22%, 0.1);
+  padding: 1.5rem 1.5rem;
   /* initial 3D transform properties to give the sense of a rotated device */
   transform: translateZ(-40px) rotateX(4deg) rotateY(15deg);
   transform-style: preserve-3d;
@@ -42,7 +42,7 @@ body {
   justify-content: flex-end;
   flex-grow: 1;
   /* second 3D transform to have the chat noticeably elevated from the screen */
-  transform: translateZ(50px);
+  transform: translateZ(60px);
 }
 
 /* align the text messages alternatively to the left and to the right */
@@ -56,6 +56,9 @@ body {
   as per overflow hidden, the message appears as if sliding upwards
   */
   animation: intro 0.3s ease-out both;
+  -webkit-box-shadow: 8px 10px 17px -6px rgba(0,0,0,0.75);
+-moz-box-shadow: 8px 10px 17px -6px rgba(0,0,0,0.75);
+box-shadow: 8px 10px 17px -6px rgba(0,0,0,0.75);
 }
 .phone__chat .chat--message:nth-child(even) {
   align-self: flex-end;
