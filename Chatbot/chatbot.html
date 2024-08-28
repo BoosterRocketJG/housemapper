@@ -3,23 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HouseMapper Chatbot</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
+    <title>Validation Form</title>
+    <link rel="stylesheet" href="../Chatbot/styles.css">
 </head>
-<body>
-    <div id="chatbot-container">
-        <div id="chatbot-header">
-            <h2>HouseMapper Chatbot</h2>
-        </div>
-        <div id="chatbot-messages">
-            <!-- Chat messages will be appended here -->
-        </div>
-        <div id="chatbot-input">
-            <input type="text" id="user-input" placeholder="Type your message here...">
-            <button id="send-button">Send</button>
-        </div>
+<!-- markup
+    div, wrapping the content
+        div, wrapping the text messages
+            p, one for each text message
+
+        form, describing the input element
+            input, of type text
+            button, made up of an SVG icon
+-->
+<div class="phone">
+
+    <div class="phone__chat">
+        <p class="chat--message">How are you?</p>
     </div>
 
-    <script src="scripts.js"></script> <!-- Link to your JS file -->
-</body>
-</html>
+
+    <form class="phone__form">
+        <input type="text" placeholder="Message" />
+
+        <button title="Send" type="submit">
+            <!-- include a linear gradient for the icon of a paper plane -->
+            <svg viewBox="0 0 100 100" width="40" height="40">
+                <defs>
+                    <linearGradient id="gradient" x1="0" x2="100">
+                        <stop offset="0%" stop-color="#52A530"></stop>
+                        <stop offset="100%" stop-color="#3DA55B"></stop>
+                    </linearGradient>
+                </defs>
+                <path d="M 20 10 l 70 40 l -70 40 l 7 -36 h 28 a 4 4 0 0 0 0 -8 h -28 z" stroke-linejoin="round" fill="url(#gradient)"></path>
+            </svg>
+        </button>
+    </form>
+    <script src="../Chatbot/script.js"></script>
+</div>
