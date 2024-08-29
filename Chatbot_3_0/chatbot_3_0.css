@@ -18,7 +18,7 @@ body {
     max-width: 500px;
     height: 100%;
     max-height: 900px;
-    border: 1px solid #ccc;
+    border-style: none;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
@@ -36,12 +36,13 @@ body {
 
 .chat-message {
     max-width: 80%;
-    margin: 10px 0px;
+    margin: 10px 0;
     padding: 15px;
     border-radius: 15px;
     line-height: 1.4;
     word-wrap: break-word;
     font-size: 1em;
+    position: relative; /* Important for tail positioning */
 }
 
 .chat-message.left {
@@ -59,40 +60,46 @@ body {
 .chat-message.left::after {
     content: '';
     position: absolute;
-    top: 10px;
-    left: -15px; /* Positioning the tail outside the bubble */
+    bottom: 14px; /* Align with the bottom of the bubble */
+    left: -15px; /* Adjust position to be outside the bubble */
     width: 0;
     height: 0;
-    border: 10px solid transparent;
+    border: 30px solid transparent;
     border-right-color: #e0e0e0; /* Match the bubble's color */
     border-left: 0;
     border-top: 0;
-    margin-top: -5px;
+    transform: translateY(50%); /* Further adjustment to position */
+    border-radius: 10px 100px 0px 0px;
 }
 
 /* Tail for right-aligned (user) messages */
 .chat-message.right::after {
     content: '';
     position: absolute;
-    top: 10px;
-    right: -15px; /* Positioning the tail outside the bubble */
+    bottom: -5px; /* Align with the bottom of the bubble */
+    right: -5px; /* Adjust position to be outside the bubble */
     width: 0;
     height: 0;
-    border: 10px solid transparent;
+    border: 27px solid transparent;
     border-left-color: #007bff; /* Match the bubble's color */
     border-right: 0;
     border-top: 0;
-    margin-top: -5px;
+    transform: translateY(50%); /* Further adjustment to position */
+    border-radius: 10px 10px 40px 30px;
+    transform: rotate(70deg)
 }
+
 
 .chat-input-form {
     display: flex;
+    align-items: flex-end;
     padding: 10px;
     border-top: 1px solid #ccc;
 }
 
 .chat-input {
     flex-grow: 1;
+    min-height: 90px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 10px;
