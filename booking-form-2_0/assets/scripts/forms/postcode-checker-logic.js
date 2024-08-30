@@ -5,14 +5,14 @@ document.addEventListener('DOMContentLoaded', function() {
     var inputLabel = document.querySelector('label[for="postcodeStub"]');
 
     // Fetch validation messages
-    fetch('../assets/data/validation-messages.json')
+    fetch('https://boosterrocketjg.github.io/housemapper/booking-form-2_0/assets/data/validation-messages.json')
         .then(response => response.json())
         .then(messages => {
             // Set the label text from the JSON file
             inputLabel.textContent = messages.inputLabel.text;
 
             // Fetch entries from the approved postcodes JSON file
-            fetch('../assets/data/approved-postcodes.json')
+            fetch('https://boosterrocketjg.github.io/housemapper/booking-form-2_0/assets/data/approved-postcodes.json')
                 .then(response => response.json())
                 .then(data => {
                     var acceptedEntries = data.acceptedEntries;
