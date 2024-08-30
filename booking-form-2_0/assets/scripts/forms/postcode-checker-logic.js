@@ -8,22 +8,19 @@ document.addEventListener('DOMContentLoaded', function () {
         event.preventDefault(); // Prevent form submission
 
         const postcodeStub = postcodeStubField.value.trim();
-        
-        // Fetch and check postcodes
-        fetchApprovedPostcodes()
-            .then(approvedPostcodes => {
+
+        // Fetch both JSON files concurrently
+        Promise.all([fetchApprovedPostcodes(), fetchResponseMessages()])
+            .then(([approvedPostcodes, responseMessages]) => {
                 if (isPostcodeApproved(postcodeStub, approvedPostcodes)) {
-                    postcodeMessage.textContent = "Postcode is within the service area.";
-                    postcodeMessage.style.color = "green";
+                    displayMessage(responseMessages.success, "green");
                 } else {
-                    postcodeMessage.textContent = "Sorry, we do not service this area.";
-                    postcodeMessage.style.color = "red";
+                    displayMessage(responseMessages.failure, "red");
                 }
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
-                postcodeMessage.textContent = "An error occurred. Please try again later.";
-                postcodeMessage.style.color = "red";
+                displayMessage("An error occurred. Please try again later.", "red");
             });
     });
 
@@ -38,9 +35,26 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
+    // Fetch JSON data for response messages
+    function fetchResponseMessages() {
+        return fetch('https://cdn.jsdelivr.net/gh/boosterrocketJG/housemapper/response-messages.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            });
+    }
+
     // Function to check if the postcode is approved
     function isPostcodeApproved(postcode, approvedPostcodes) {
         // Example check, modify as needed
         return approvedPostcodes.includes(postcode.toUpperCase());
+    }
+
+    // Function to display messages
+    function displayMessage(message, color) {
+        postcodeMessage.textContent = message;
+        postcodeMessage.style.color = color;
     }
 });
