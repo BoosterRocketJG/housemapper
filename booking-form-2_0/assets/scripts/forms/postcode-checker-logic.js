@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
-    var inputField = document.getElementById('inputField');
-    var submitButton = document.getElementById('submitButton');
-    var messageDiv = document.getElementById('message');
-    var inputLabel = document.querySelector('label[for="inputField"]');
+    var inputField = document.getElementById('postcodeStub');
+    var submitButton = document.getElementById('postcodeButton');
+    var messageDiv = document.getElementById('postcodeMessage');
+    var inputLabel = document.querySelector('label[for="postcodeStub"]');
 
     // Fetch validation messages
     fetch('../assets/data/validation-messages.json')
