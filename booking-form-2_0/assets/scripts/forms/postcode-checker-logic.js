@@ -1,60 +1,75 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const postcodeButton = document.getElementById('postcodeButton');
-    const postcodeStubField = document.getElementById('postcodeStub');
-    const postcodeMessage = document.getElementById('postcodeMessage');
+document.addEventListener('DOMContentLoaded', function() {
+    var inputField = document.getElementById('postcodeStub');
+    var submitButton = document.getElementById('postcodeButton');
+    var messageDiv = document.getElementById('postcodeMessage');
+    var inputLabel = document.querySelector('label[for="postcodeStub"]');
 
-    // Event listener for the button
-    postcodeButton.addEventListener('click', function (event) {
-        event.preventDefault(); // Prevent form submission
+    // Fetch validation messages
+    fetch('../assets/data/validation-messages.json')
+        .then(response => response.json())
+        .then(messages => {
+            // Set the label text from the JSON file
+            inputLabel.textContent = messages.inputLabel.text;
 
-        const postcodeStub = postcodeStubField.value.trim();
+            // Fetch entries from the approved postcodes JSON file
+            fetch('../assets/data/approved-postcodes.json')
+                .then(response => response.json())
+                .then(data => {
+                    var acceptedEntries = data.acceptedEntries;
 
-        // Fetch both JSON files concurrently
-        Promise.all([fetchApprovedPostcodes(), fetchResponseMessages()])
-            .then(([approvedPostcodes, responseMessages]) => {
-                if (isPostcodeApproved(postcodeStub, approvedPostcodes)) {
-                    displayMessage(responseMessages.success, "green");
-                } else {
-                    displayMessage(responseMessages.failure, "red");
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-                displayMessage("An error occurred. Please try again later.", "red");
-            });
-    });
+                    inputField.addEventListener('input', function() {
+                        // Remove whitespace and limit input to 4 characters
+                        var value = inputField.value.replace(/\s+/g, '').toUpperCase();
 
-    // Fetch JSON data for approved postcodes
-    function fetchApprovedPostcodes() {
-        return fetch('https://cdn.jsdelivr.net/gh/boosterrocketJG/housemapper/approved-postcodes.json')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            });
-    }
+                        // If space or >4 characters are entered, run the check immediately
+                        if (value.length > 4 || /\s/.test(inputField.value)) {
+                            value = value.slice(0, 4); // Limit to 4 characters
+                            inputField.value = value;
+                        }
 
-    // Fetch JSON data for response messages
-    function fetchResponseMessages() {
-        return fetch('https://cdn.jsdelivr.net/gh/boosterrocketJG/housemapper/response-messages.json')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            });
-    }
+                        // Run check if >2 characters are entered
+                        if (value.length > 2) {
+                            var exactAcceptedMatch = acceptedEntries.includes(value);
 
-    // Function to check if the postcode is approved
-    function isPostcodeApproved(postcode, approvedPostcodes) {
-        // Example check, modify as needed
-        return approvedPostcodes.includes(postcode.toUpperCase());
-    }
+                            // Clear existing message and reset opacity for fade-in effect
+                            messageDiv.classList.remove('show');
 
-    // Function to display messages
-    function displayMessage(message, color) {
-        postcodeMessage.textContent = message;
-        postcodeMessage.style.color = color;
-    }
+                            setTimeout(function() { // Introduce a small delay
+                                if (exactAcceptedMatch) {
+                                    messageDiv.textContent = messages.exactMatch.text;
+                                    messageDiv.className = "message accept show";
+                                    submitButton.disabled = false;
+                                    submitButton.classList.add('show');
+                                } else {
+                                    messageDiv.textContent = messages.noCoverage.text;
+                                    messageDiv.className = "message reject show";
+                                    submitButton.disabled = true;
+                                    submitButton.classList.remove('show');
+                                }
+                            }, 50); // 50ms delay to ensure browser processes class removal
+                        } else {
+                            // Clear the message if the input is <= 2 characters
+                            messageDiv.textContent = messages.emptyMessage.text;
+                            messageDiv.className = "message";
+                            submitButton.disabled = true;
+                            submitButton.classList.remove('show');
+                        }
+                    });
+
+                    // Add event listener for form submission to proceed to the next step
+                    submitButton.addEventListener('click', function(event) {
+                        event.preventDefault(); // Prevent the default form submission
+                        var value = inputField.value.replace(/\s+/g, '').toUpperCase();
+                        if (acceptedEntries.includes(value)) {
+                            window.location.href = 'step-2-space-type.html'; // Redirect to Step 2
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching the approved postcodes:', error);
+                });
+        })
+        .catch(error => {
+            console.error('Error fetching validation messages:', error);
+        });
 });
