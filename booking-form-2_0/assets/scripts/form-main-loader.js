@@ -1,17 +1,17 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // List of JavaScript files to load
+    // List of JavaScript files to load from the same domain using the proxy path
     const jsFiles = [
-        'https://assets.housemapper.co.uk/booking-form-2_0/assets/scripts/forms/webflow-js-test.js',
-        'https://assets.housemapper.co.uk/booking-form-2_0/assets/scripts/forms/buildship-submission-1.js',
-        'https://assets.housemapper.co.uk/booking-form-2_0/assets/scripts/forms/post-code-checker-logic.js',
-        'https://assets.housemapper.co.uk/booking-form-2_0/assets/scripts/forms/step-6.js',
-        'https://assets.housemapper.co.uk/booking-form-2_0/assets/scripts/forms/step-9.js'
+        'https://housemapper.co.uk/assets/scripts/forms/webflow-js-test.js',
+        'https://housemapper.co.uk/assets/scripts/forms/buildship-submission-1.js',
+        'https://housemapper.co.uk/assets/scripts/forms/post-code-checker-logic.js',
+        'https://housemapper.co.uk/assets/scripts/forms/step-6.js',
+        'https://housemapper.co.uk/assets/scripts/forms/step-9.js'
     ];
 
-    // List of JSON files to load
+    // List of JSON files to load from the same domain using the proxy path
     const jsonFiles = [
-        'https://assets.housemapper.co.uk/booking-form-2_0/assets/data/validation-messages.json',
-        'https://assets.housemapper.co.uk/booking-form-2_0/assets/data/approved-postcodes.json'
+        'https://housemapper.co.uk/assets/data/validation-messages.json',
+        'https://housemapper.co.uk/assets/data/approved-postcodes.json'
     ];
 
     // Function to dynamically load a JavaScript file
@@ -31,8 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function fetchJson(url) {
         return fetch(url, {
             method: 'GET',
-            mode: 'cors', // Use CORS mode
-            credentials: 'same-origin' // Use same-origin credentials
+            mode: 'same-origin' // Use 'same-origin' mode since we are now on the same domain
         })
         .then(response => {
             if (!response.ok) {
