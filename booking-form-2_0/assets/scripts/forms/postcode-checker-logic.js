@@ -5,14 +5,14 @@ document.addEventListener('DOMContentLoaded', function() {
     var inputLabel = document.querySelector('label[for="postcodeStub"]');
 
     // Fetch validation messages
-        fetch('https://assets.housemapper.co.uk/booking-form-2_0/assets/data/validation-messages.json')
+    fetch('https://cdn.prod.website-files.com/665765c97e1962b819194572/66d483a51450b3d1402e17df_validation-messages.txt')
         .then(response => response.json())
         .then(messages => {
             // Set the label text from the JSON file
             inputLabel.textContent = messages.inputLabel.text;
 
             // Fetch entries from the approved postcodes JSON file
-            fetch('https://assets.housemapper.co.uk/booking-form-2_0/assets/data/approved-postcodes.json')
+            fetch('https://cdn.prod.website-files.com/665765c97e1962b819194572/66d483ca87cf85597215bfbd_approved-postcodes.txt')
                 .then(response => response.json())
                 .then(data => {
                     var acceptedEntries = data.acceptedEntries;
