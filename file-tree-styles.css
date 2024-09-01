@@ -1,0 +1,21 @@
+ul {
+    list-style-type: none; /* Remove default bullet points */
+    padding-left: 20px; /* Indentation for nested lists */
+}
+
+.folder {
+    font-weight: bold; /* Bold text for folders */
+    cursor: pointer; /* Pointer cursor for folders */
+}
+
+.file {
+    color: #555; /* Gray color for files */
+}
+
+.folder::before {
+    content: '📂 '; /* Folder icon */
+}
+
+.file::before {
+    content: '📄 '; /* File icon */
+}
