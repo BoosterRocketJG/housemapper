@@ -1,11 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     // List of JavaScript files to load
     const jsFiles = [
-        'https://assets.housemapper.co.uk/booking-form-2_0/assets/scripts/forms/webflow-js-test.js',
-        'https://assets.housemapper.co.uk/booking-form-2_0/assets/scripts/forms/buildship-submission-1.js',
-        'https://assets.housemapper.co.uk/booking-form-2_0/assets/scripts/forms/postcode-checker-logic.js',
-        'https://assets.housemapper.co.uk/booking-form-2_0/assets/scripts/forms/step-6.js',
-        'https://assets.housemapper.co.uk/booking-form-2_0/assets/scripts/forms/step-9.js'
+        'https://assets.housemapper.co.uk/booking-form-2_0/assets/scripts/forms/webflow-js-test.js'
     ];
 
     // Function to dynamically load a JavaScript file
