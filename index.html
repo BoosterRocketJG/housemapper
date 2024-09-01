@@ -3,13 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic File Tree</title>
-    <link rel="stylesheet" href="../housemapper/file-tree-styles.css">
-    <link rel="stylesheet" href="https://cdn.prod.website-files.com/665765c97e1962b819194572/css/housemapper.webflow.5a1154a55.css"> <!-- Link to your CSS file -->
+    <title>Static File Tree</title>
+    <style>
+        ul {
+            list-style-type: none; /* Remove default bullet points */
+            padding-left: 20px; /* Indentation for nested lists */
+        }
+        .folder {
+            font-weight: bold; /* Bold text for folders */
+        }
+        .folder::before {
+            content: '📂 '; /* Folder icon */
+        }
+        .file::before {
+            content: '📄 '; /* File icon */
+        }
+    </style>
 </head>
 <body>
-    <div id="file-tree-container"></div> <!-- Container for the dynamic file tree -->
-    
-    <script src="../housemapper/file-tree.js"></script> <!-- Link to your JavaScript file -->
+    <h1>File Tree for housemapper Repository</h1>
+    <div id="file-tree-container">
+        <ul>
+            <li class="folder">booking-form-2_0
+                <ul>
+                    <li class="folder">assets
+                        <ul>
+                            <li class="folder">data
+                                <ul>
+                                    <li class="file"><a href="https://assets.housemapper.co.uk/booking-form-2_0/assets/data/approved-postcodes.json">approved-postcodes.json</a></li>
+                                    <li class="file"><a href="https://assets.housemapper.co.uk/booking-form-2_0/assets/data/validation-messages.json">validation-messages.json</a></li>
+                                </ul>
+                            </li>
+                            <li class="folder">scripts
+                                <ul>
+                                    <li class="folder">forms
+                                        <ul>
+                                            <li class="file"><a href="https://assets.housemapper.co.uk/booking-form-2_0/assets/scripts/forms/buildship-submission-1.js">buildship-submission-1.js</a></li>
+                                            <li class="file"><a href="https://assets.housemapper.co.uk/booking-form-2_0/assets/scripts/forms/postcode-checker-logic.js">postcode-checker-logic.js</a></li>
+                                            <li class="file"><a href="https://assets.housemapper.co.uk/booking-form-2_0/assets/scripts/forms/step-6.js">step-6.js</a></li>
+                                            <li class="file"><a href="https://assets.housemapper.co.uk/booking-form-2_0/assets/scripts/forms/step-9.js">step-9.js</a></li>
+                                            <li class="file"><a href="https://assets.housemapper.co.uk/booking-form-2_0/assets/scripts/forms/utilities.js">utilities.js</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="folder">styles
+                        <ul>
+                            <li class="folder">forms
+                                <ul>
+                                    <li class="file"><a href="https://assets.housemapper.co.uk/booking-form-2_0/assets/styles/forms/form-styles.css">form-styles.css</a></li>
+                                    <li class="file"><a href="https://assets.housemapper.co.uk/booking-form-2_0/assets/styles/forms/postcode-checker.css">postcode-checker.css</a></li>
+                                </ul>
+                            </li>
+                            <li class="file"><a href="https://assets.housemapper.co.uk/booking-form-2_0/assets/styles/base.css">base.css</a></li>
+                            <li class="file"><a href="https://assets.housemapper.co.uk/booking-form-2_0/assets/styles/components.css">components.css</a></li>
+                            <li class="file"><a href="https://assets.housemapper.co.uk/booking-form-2_0/assets/styles/layout.css">layout.css</a></li>
+                        </ul>
+                    </li>
+                    <li class="folder">pages
+                        <ul>
+                            <li class="file"><a href="https://assets.housemapper.co.uk/booking-form-2_0/pages/index.html">index.html</a></li>
+                        </ul>
+                    </li>
+                    <li class="file"><a href="https://assets.housemapper.co.uk/booking-form-2_0/.DS_Store">.DS_Store</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
 </body>
 </html>

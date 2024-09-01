@@ -1,11 +1,12 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // List of JavaScript files to load from the same domain using the proxy path
+    // List of JavaScript files to load
     const jsFiles = [
-        'https://housemapper.co.uk/assets/scripts/forms/webflow-js-test.js',
-        'https://housemapper.co.uk/assets/scripts/forms/buildship-submission-1.js',
-        'https://housemapper.co.uk/assets/scripts/forms/post-code-checker-logic.js',
-        'https://housemapper.co.uk/assets/scripts/forms/step-6.js',
-        'https://housemapper.co.uk/assets/scripts/forms/step-9.js'
+        'https://assets.housemapper.co.uk/booking-form-2_0/assets/scripts/forms/webflow-js-test.js',
+        'https://assets.housemapper.co.uk/booking-form-2_0/assets/scripts/forms/buildship-submission-1.js',
+        'https://assets.housemapper.co.uk/booking-form-2_0/assets/scripts/forms/postcode-checker-logic.js',
+        'https://assets.housemapper.co.uk/booking-form-2_0/assets/scripts/forms/step-6.js',
+        'https://assets.housemapper.co.uk/booking-form-2_0/assets/scripts/forms/step-9.js',
+        'https://assets.housemapper.co.uk/booking-form-2_0/assets/scripts/forms/utilities.js'
     ];
 
     // Function to dynamically load a JavaScript file
@@ -20,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
             document.body.appendChild(script);
         });
     }
+
     // Load all JavaScript files sequentially
     jsFiles.reduce((promise, file) => {
         return promise.then(() => loadScript(file));
@@ -30,3 +32,4 @@ document.addEventListener('DOMContentLoaded', function () {
     .catch(error => {
         console.error('Error loading JavaScript files:', error);
     });
+});
