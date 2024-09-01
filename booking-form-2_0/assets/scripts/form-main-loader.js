@@ -5,8 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
         'https://assets.housemapper.co.uk/booking-form-2_0/assets/scripts/forms/buildship-submission-1.js',
         'https://assets.housemapper.co.uk/booking-form-2_0/assets/scripts/forms/postcode-checker-logic.js',
         'https://assets.housemapper.co.uk/booking-form-2_0/assets/scripts/forms/step-6.js',
-        'https://assets.housemapper.co.uk/booking-form-2_0/assets/scripts/forms/step-9.js',
-        'https://assets.housemapper.co.uk/booking-form-2_0/assets/scripts/forms/utilities.js'
+        'https://assets.housemapper.co.uk/booking-form-2_0/assets/scripts/forms/step-9.js'
     ];
 
     // Function to dynamically load a JavaScript file
