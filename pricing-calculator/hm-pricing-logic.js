@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     updatePricesFromJSON();
 });
-
 // Function to fetch the product data and update prices
 async function updatePricesFromJSON() {
     try {
