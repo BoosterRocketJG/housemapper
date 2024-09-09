@@ -3,9 +3,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeProductCounts();
     setupProductEventListeners();
     setupResetButtonEventListener();
-    setupVATStateListener(); // Setup listener for VAT state changes
-    calculateTotalQuote(); // Calculate initial total quote
+    calculateTotals(); // Calculate initial totals
     displaySteppedPricing(); // Display stepped pricing where applicable
+    updateDisplayedTotal(); // Display the correct total
 });
 
 // Function to initialize base product counts to 1 in localStorage
@@ -48,14 +48,14 @@ function setupProductEventListeners() {
     document.querySelectorAll('[id^="increment-"]').forEach(button => {
         button.addEventListener('click', () => {
             handleIncrement(button);
-            calculateTotalQuote(); // Recalculate total quote after change
+            calculateTotals(); // Recalculate and update totals after change
         });
     });
 
     document.querySelectorAll('[id^="decrement-"]').forEach(button => {
         button.addEventListener('click', () => {
             handleDecrement(button);
-            calculateTotalQuote(); // Recalculate total quote after change
+            calculateTotals(); // Recalculate and update totals after change
         });
     });
 
@@ -63,7 +63,7 @@ function setupProductEventListeners() {
     document.querySelectorAll('[id^="add-"]').forEach(button => {
         button.addEventListener('click', () => {
             handleLimitedProductToggle(button);
-            calculateTotalQuote(); // Recalculate total quote after change
+            calculateTotals(); // Recalculate and update totals after change
         });
     });
 }
@@ -74,17 +74,9 @@ function setupResetButtonEventListener() {
     if (resetButton) {
         resetButton.addEventListener('click', () => {
             handleResetButtonClick();
-            calculateTotalQuote(); // Recalculate total quote after reset
+            calculateTotals(); // Recalculate totals after reset
         });
     }
-}
-
-// Function to set up event listener for VAT state changes
-function setupVATStateListener() {
-    document.addEventListener('vatStateChanged', () => {
-        calculateTotalQuote(); // Recalculate total quote when VAT state changes
-        displaySteppedPricing(); // Update subsequent prices based on VAT state
-    });
 }
 
 // Handle increment button click for unlimited products
@@ -166,45 +158,56 @@ function updateLimitedProductUI(productId, count) {
     }
 }
 
-// Function to calculate and display the total quote
-async function calculateTotalQuote() {
+// Function to calculate totals with and without VAT and store them in localStorage
+async function calculateTotals() {
     try {
         const response = await fetch('https://assets.housemapper.co.uk/hmProducts.json');
         const products = await response.json();
-        let totalQuote = 0;
+        let totalExVAT = 0;
+        let totalIncVAT = 0;
 
-        // Get the current VAT state
-        const vatState = localStorage.getItem('vatState');
-
-        // Loop through each product and calculate total based on count and VAT state
+        // Loop through each product and calculate totals based on count
         products.forEach(product => {
             const productId = product.fields.productID;
-            const basePrice = getPriceBasedOnVAT(product);
+            const priceExVAT = product.fields['Price Excl VAT'];
+            const priceIncVAT = product.fields['Price Incl VAT'];
             const quantityDiscount = product.fields['quantityDiscount'] || 1; // Default to 1 if not specified
 
             const count = parseInt(localStorage.getItem(`count-${productId}`)) || 0;
 
             if (count > 1) {
                 // Apply base price for the first unit and quantity discount for additional units
-                totalQuote += basePrice + (count - 1) * basePrice * quantityDiscount;
+                totalExVAT += priceExVAT + (count - 1) * priceExVAT * quantityDiscount;
+                totalIncVAT += priceIncVAT + (count - 1) * priceIncVAT * quantityDiscount;
             } else if (count === 1) {
                 // Just add the base price
-                totalQuote += basePrice;
+                totalExVAT += priceExVAT;
+                totalIncVAT += priceIncVAT;
             }
         });
 
-        // Update the total quote display
-        document.getElementById('total-quote').textContent = totalQuote.toFixed(2); // Format to 2 decimal places
+        // Store both totals in localStorage
+        localStorage.setItem('totalExVAT', totalExVAT.toFixed(2));
+        localStorage.setItem('totalIncVAT', totalIncVAT.toFixed(2));
 
+        // Update the displayed totals
+        updateDisplayedTotal();
     } catch (error) {
-        console.error('Error fetching or calculating total quote:', error);
+        console.error('Error fetching or calculating totals:', error);
     }
 }
 
-// Function to get the price based on the VAT state
-function getPriceBasedOnVAT(product) {
+// Function to update the displayed total
+function updateDisplayedTotal() {
     const vatState = localStorage.getItem('vatState');
-    return vatState === 'inc-VAT' ? product.fields['Price Incl VAT'] : product.fields['Price Excl VAT'];
+    const totalExVAT = localStorage.getItem('totalExVAT') || '0.00';
+    const totalIncVAT = localStorage.getItem('totalIncVAT') || '0.00';
+
+    // Update the total in #total-quote
+    const totalElement = document.getElementById('total-quote');
+    if (totalElement) {
+        totalElement.textContent = vatState === 'inc-VAT' ? totalIncVAT : totalExVAT;
+    }
 }
 
 // Function to display stepped pricing for products with quantity discounts
@@ -215,14 +218,15 @@ async function displaySteppedPricing() {
 
         products.forEach(product => {
             const productId = product.fields.productID;
-            const basePrice = getPriceBasedOnVAT(product);
+            const priceExVAT = product.fields['Price Excl VAT'];
             const quantityDiscount = product.fields['quantityDiscount'];
+
+            // Calculate the subsequent price
+            const subsequentPrice = (priceExVAT * quantityDiscount).toFixed(2);
 
             // If there is a quantity discount, display the subsequent price
             if (quantityDiscount && quantityDiscount < 1) {
-                const subsequentPrice = (basePrice * quantityDiscount).toFixed(2); // Calculate discounted price
                 const subsequentPriceElement = document.getElementById(`${productId}-price-subsequent`);
-
                 if (subsequentPriceElement) {
                     subsequentPriceElement.textContent = subsequentPrice; // Display subsequent price
                 }
