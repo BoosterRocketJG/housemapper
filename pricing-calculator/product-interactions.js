@@ -42,13 +42,12 @@ function initializeProductCounts() {
     });
 }
 
-// Function to set up event listeners for product interaction buttons
 function setupProductEventListeners() {
-    // Event listeners for unlimited products' increment and decrement buttons
     document.querySelectorAll('[id^="increment-"]').forEach(button => {
         button.addEventListener('click', () => {
             handleIncrement(button);
             calculateTotals(); // Recalculate and update totals after change
+            updateResetButtonState(); // Check and update reset button state
         });
     });
 
@@ -56,25 +55,26 @@ function setupProductEventListeners() {
         button.addEventListener('click', () => {
             handleDecrement(button);
             calculateTotals(); // Recalculate and update totals after change
+            updateResetButtonState(); // Check and update reset button state
         });
     });
 
-    // Event listeners for limited products' add buttons
     document.querySelectorAll('[id^="add-"]').forEach(button => {
         button.addEventListener('click', () => {
             handleLimitedProductToggle(button);
             calculateTotals(); // Recalculate and update totals after change
+            updateResetButtonState(); // Check and update reset button state
         });
     });
 }
 
-// Function to set up event listener for the reset button
 function setupResetButtonEventListener() {
     const resetButton = document.getElementById('reset-button');
     if (resetButton) {
         resetButton.addEventListener('click', () => {
             handleResetButtonClick();
             calculateTotals(); // Recalculate totals after reset
+            updateResetButtonState(); // Check and update reset button state
         });
     }
 }
@@ -209,7 +209,6 @@ function updateDisplayedTotal() {
         totalElement.textContent = vatState === 'inc-VAT' ? totalIncVAT : totalExVAT;
     }
 }
-
 // Function to display stepped pricing for products with quantity discounts
 async function displaySteppedPricing() {
     try {
@@ -236,3 +235,21 @@ async function displaySteppedPricing() {
         console.error('Error fetching or displaying stepped pricing:', error);
     }
 }
+function updateResetButtonState() {
+    const totalExVAT = localStorage.getItem('totalExVAT') || '0.00';
+    const totalIncVAT = localStorage.getItem('totalIncVAT') || '0.00';
+    const resetButton = document.getElementById('reset-button');
+
+    if (resetButton) {
+        if (totalExVAT === '275.00' && totalIncVAT === '330.00') {
+            // Add the .button-disabled class to grey out the button and disable interactions
+            resetButton.classList.add('button-disabled');
+        } else {
+            // Remove the .button-disabled class to restore the button's appearance and functionality
+            resetButton.classList.remove('button-disabled');
+        }
+    }
+}
+
+
+

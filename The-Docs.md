@@ -211,3 +211,6 @@
 18. **Google Looker Studio:**
     1. Cost: Free tier
     2. Account: James' Google login
+
+19. **Google Business Profile Manager:**
+    1. Currently awaiting verification, this will be important to link into Ads etc.

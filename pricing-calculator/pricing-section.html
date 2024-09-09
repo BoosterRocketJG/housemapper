@@ -1,4 +1,4 @@
-<!DOCTYPE html><!-- Last Published: Sun Sep 08 2024 23:16:55 GMT+0000 (Coordinated Universal Time) -->
+<!DOCTYPE html><!-- Last Published: Mon Sep 09 2024 13:35:42 GMT+0000 (Coordinated Universal Time) -->
 <html data-wf-domain="housemapper.webflow.io" data-wf-page="66d9f0f78efdee4c988464db"
     data-wf-site="665765c97e1962b819194572" lang="en">
 
@@ -8,7 +8,7 @@
     <meta content="Pricing Calculator" property="og:title" />
     <meta content="Pricing Calculator" property="twitter:title" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <link href="https://cdn.prod.website-files.com/665765c97e1962b819194572/css/housemapper.webflow.fd09437c0.css"
+    <link href="https://cdn.prod.website-files.com/665765c97e1962b819194572/css/housemapper.webflow.8ad45ea42.css"
         rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous" />
@@ -138,14 +138,14 @@
                                         <h4 id="room-price" class="pricing-card-title price">12</h4>
                                         <h4 class="pricing-card-title non-num"> per room</h4>
                                     </div>
-                                    <div class="price-card-line"></div>
-                                    <div class="paragraph pricing">If there are more than 6 rooms to be scanned, each
-                                        additional room adds a fixed fee of £12.</div>
                                     <div class="w-layout-hflex addons-control"><a id="decrement-room" href="#"
                                             class="decrement-button w-button">-</a>
                                         <div id="count-room" class="price-quote-big">0</div><a id="increment-room"
                                             href="#" class="increment-button w-button">+</a>
                                     </div>
+                                    <div class="price-card-line"></div>
+                                    <div class="paragraph pricing">If there are more than 6 rooms to be scanned, each
+                                        additional room adds a fixed fee..</div>
                                 </div>
                                 <div id="dwg" class="w-layout-vflex pricing-card">
                                     <div class="price-card-image-wrapper"><img
@@ -199,24 +199,24 @@
                                         class="w-layout-hflex price-amount-wrapper">
                                         <h4 class="pricing-card-title non-num">£</h4>
                                         <h4 id="section-price-subsequent" class="pricing-card-title price">25</h4>
-                                        <h4 class="pricing-card-title non-num">each additional section</h4>
+                                        <h4 class="pricing-card-title non-num">additional sections</h4>
+                                    </div>
+                                    <div class="w-layout-hflex addons-control"><a id="decrement-section" href="#"
+                                            class="decrement-button w-button">-</a>
+                                        <div id="count-section" class="price-quote-big">0</div><a id="increment-section"
+                                            href="#" class="increment-button w-button">+</a>
                                     </div>
                                     <div class="price-card-line"></div>
                                     <div class="paragraph pricing">A horizontal cross-section view of your property.
                                         Essential for loft conversions and license-to-alter planning.</div>
                                     <div class="price-card-image-wrapper"><img
                                             src="https://cdn.prod.website-files.com/665765c97e1962b819194572/66d5d392b39adefe96245dab_section-icon.png"
-                                            loading="lazy" sizes="36px"
+                                            loading="lazy" sizes="(max-width: 991px) 40px, 36px"
                                             srcset="https://cdn.prod.website-files.com/665765c97e1962b819194572/66d5d392b39adefe96245dab_section-icon-p-500.png 500w, https://cdn.prod.website-files.com/665765c97e1962b819194572/66d5d392b39adefe96245dab_section-icon.png 512w"
                                             alt="" class="image-9" /></div>
                                     <div class="w-layout-vflex pricing-card-inner-image-wrapper"><img
                                             src="https://cdn.prod.website-files.com/665765c97e1962b819194572/66d5e13973e938aabc4d3442_SECTION-SCREENSHOT-2.png"
                                             loading="lazy" alt="" /></div>
-                                    <div class="w-layout-hflex addons-control"><a id="decrement-section" href="#"
-                                            class="decrement-button w-button">-</a>
-                                        <div id="count-section" class="price-quote-big">0</div><a id="increment-section"
-                                            href="#" class="increment-button w-button">+</a>
-                                    </div>
                                 </div>
                                 <div id="elevation" class="w-layout-vflex pricing-card">
                                     <h3 class="pricing-card-title">Elevations</h3>
@@ -230,7 +230,12 @@
                                         class="w-layout-hflex price-amount-wrapper">
                                         <h4 class="pricing-card-title non-num">£</h4>
                                         <h4 id="elevation-price-subsequent" class="pricing-card-title price">25</h4>
-                                        <h4 class="pricing-card-title non-num">each additional elevation</h4>
+                                        <h4 class="pricing-card-title non-num">additional elevations</h4>
+                                    </div>
+                                    <div class="w-layout-hflex addons-control"><a id="decrement-elevation" href="#"
+                                            class="decrement-button w-button">-</a>
+                                        <div id="count-elevation" class="price-quote-big">0</div><a
+                                            id="increment-elevation" href="#" class="increment-button w-button">+</a>
                                     </div>
                                     <div class="price-card-line"></div>
                                     <div class="paragraph pricing">A vertical view of your property. Fundamental to
@@ -241,11 +246,6 @@
                                     <div class="w-layout-vflex pricing-card-inner-image-wrapper"><img
                                             src="https://cdn.prod.website-files.com/665765c97e1962b819194572/66d5de4cc621fbcddf788a25_elevation-demo.png"
                                             loading="lazy" alt="" /></div>
-                                    <div class="w-layout-hflex addons-control"><a id="decrement-elevation" href="#"
-                                            class="decrement-button w-button">-</a>
-                                        <div id="count-elevation" class="price-quote-big">0</div><a
-                                            id="increment-elevation" href="#" class="increment-button w-button">+</a>
-                                    </div>
                                 </div>
                                 <div id="pointCloud" class="w-layout-vflex pricing-card">
                                     <h3 class="pricing-card-title">Point Cloud</h3>
@@ -254,6 +254,8 @@
                                         <h4 class="pricing-card-title non-num">£</h4>
                                         <h4 id="pointCloud-price" class="pricing-card-title price">60</h4>
                                     </div>
+                                    <div class="w-layout-hflex addons-control"><a id="add-pointCloud" href="#"
+                                            class="remove-btn w-button">Add/Remove</a></div>
                                     <div class="price-card-line"></div>
                                     <div class="paragraph pricing">Point clouds can be imported into CAD software and
                                         edited to create 3D models of existing buildings and sites. These models can be
@@ -263,8 +265,6 @@
                                     <div class="price-card-image-wrapper"><img
                                             src="https://cdn.prod.website-files.com/665765c97e1962b819194572/66d5d4cdc015e6ac40beabd7_point-cloud-icon.svg"
                                             loading="lazy" alt="" class="image-9" /></div>
-                                    <div class="w-layout-hflex addons-control"><a id="add-pointCloud" href="#"
-                                            class="remove-btn w-button">Add/Remove</a></div>
                                 </div>
                             </div>
                         </div>
@@ -274,8 +274,7 @@
         </div>
     </section>
     <div class="javascript w-embed w-script">
-        <script type='text/javascript'
-            src='vat-logic.js'></script>
+        <script type='text/javascript' src='vat-logic.js'></script>
         <script type='text/javascript'
             src='product-interactions.js'></script>
     </div>
