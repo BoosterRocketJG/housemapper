@@ -3,7 +3,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeProductCounts();
     setupProductEventListeners();
     setupResetButtonEventListener();
+    setupVATStateListener(); // Setup listener for VAT state changes
     calculateTotalQuote(); // Calculate initial total quote
+    displaySteppedPricing(); // Display stepped pricing where applicable
 });
 
 // Function to initialize base product counts to 1 in localStorage
@@ -75,6 +77,14 @@ function setupResetButtonEventListener() {
             calculateTotalQuote(); // Recalculate total quote after reset
         });
     }
+}
+
+// Function to set up event listener for VAT state changes
+function setupVATStateListener() {
+    document.addEventListener('vatStateChanged', () => {
+        calculateTotalQuote(); // Recalculate total quote when VAT state changes
+        displaySteppedPricing(); // Update subsequent prices based on VAT state
+    });
 }
 
 // Handle increment button click for unlimited products
@@ -195,4 +205,30 @@ async function calculateTotalQuote() {
 function getPriceBasedOnVAT(product) {
     const vatState = localStorage.getItem('vatState');
     return vatState === 'inc-VAT' ? product.fields['Price Incl VAT'] : product.fields['Price Excl VAT'];
+}
+
+// Function to display stepped pricing for products with quantity discounts
+async function displaySteppedPricing() {
+    try {
+        const response = await fetch('https://assets.housemapper.co.uk/hmProducts.json');
+        const products = await response.json();
+
+        products.forEach(product => {
+            const productId = product.fields.productID;
+            const basePrice = getPriceBasedOnVAT(product);
+            const quantityDiscount = product.fields['quantityDiscount'];
+
+            // If there is a quantity discount, display the subsequent price
+            if (quantityDiscount && quantityDiscount < 1) {
+                const subsequentPrice = (basePrice * quantityDiscount).toFixed(2); // Calculate discounted price
+                const subsequentPriceElement = document.getElementById(`${productId}-price-subsequent`);
+
+                if (subsequentPriceElement) {
+                    subsequentPriceElement.textContent = subsequentPrice; // Display subsequent price
+                }
+            }
+        });
+    } catch (error) {
+        console.error('Error fetching or displaying stepped pricing:', error);
+    }
 }
