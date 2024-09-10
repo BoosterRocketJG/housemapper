@@ -86,6 +86,7 @@
 
 1. **Payments:**
    1. Stripe: Used for handling payments from clients.
+   2. Note that email settings for stripe are at https://dashboard.stripe.com/settings/emails
 
 2. **Calendar Bookings:**
    1. Calendly: Currently used for managing calendar bookings.

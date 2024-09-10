@@ -34,7 +34,7 @@ function toggleVATState() {
     const currentVATState = localStorage.getItem('vatState');
 
     // Toggle VAT state between "ex-VAT" and "inc-VAT"
-    const newVATState = (currentVATState === 'ex-VAT') ? 'inc-VAT' : 'ex-VAT';
+    const newVATState = (currentVATState === 'ex-VAT') ? 'On' : 'Off';
     localStorage.setItem('vatState', newVATState);
 
     // Update button text and notify pricing logic to update prices
@@ -49,7 +49,7 @@ function toggleVATState() {
 function updateVATButtonText(vatState) {
     const vatToggleButton = document.getElementById('vat-toggle-btn');
     if (vatToggleButton) {
-        vatToggleButton.textContent = (vatState === 'inc-VAT') ? 'Inclusive' : 'Exclusive';
+        vatToggleButton.textContent = (vatState === 'inc-VAT') ? 'incl.' : 'excl.';
     }
 }
 
