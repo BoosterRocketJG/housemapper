@@ -11,8 +11,8 @@ function initializeVATState() {
     const vatState = localStorage.getItem('vatState') || 'ex-VAT';
     localStorage.setItem('vatState', vatState);
 
-    // Update the toggle button text based on the current VAT state
-    updateVATButtonText(vatState);
+    // Update the VAT display elements based on the current VAT state
+    updateVATDisplay(vatState);
 }
 
 // Function to set up event listener for VAT toggle button
@@ -34,24 +34,32 @@ function toggleVATState() {
     const currentVATState = localStorage.getItem('vatState');
 
     // Toggle VAT state between "ex-VAT" and "inc-VAT"
-    const newVATState = (currentVATState === 'ex-VAT') ? 'On' : 'Off';
+    const newVATState = (currentVATState === 'ex-VAT') ? 'inc-VAT' : 'ex-VAT';
     localStorage.setItem('vatState', newVATState);
 
-    // Update button text and notify pricing logic to update prices
-    updateVATButtonText(newVATState);
+    // Update VAT display elements and notify pricing logic to update prices
+    updateVATDisplay(newVATState);
 
     // Update prices and total quote based on the new VAT state
     updatePricesFromJSON();
     updateTotalQuote();
 }
 
-// Function to update the VAT button text
-function updateVATButtonText(vatState) {
-    const vatToggleButton = document.getElementById('vat-toggle-btn');
-    if (vatToggleButton) {
-        vatToggleButton.textContent = (vatState === 'inc-VAT') ? 'incl.' : 'excl.';
+// Function to update the VAT display elements (text and classes)
+function updateVATDisplay(vatState) {
+    const vatRocker = document.querySelector('.vat-rocker');
+    const toggleSlot = document.querySelector('.toggle-slot');
+
+    if (vatRocker) {
+        vatRocker.textContent = (vatState === 'inc-VAT') ? 'On' : 'Off';
+    }
+
+    if (toggleSlot) {
+        // Use a single operation to set the correct class
+        toggleSlot.className = `toggle-slot ${vatState === 'inc-VAT' ? 'on' : 'off'}`;
     }
 }
+
 
 // Function to update prices based on the current VAT state
 async function updatePricesFromJSON() {
