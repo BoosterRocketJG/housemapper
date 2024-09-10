@@ -166,23 +166,28 @@ async function calculateTotals() {
         let totalExVAT = 0;
         let totalIncVAT = 0;
 
-        // Loop through each product and calculate totals based on count
+        // Loop through each product and calculate totals based on count and allowance
         products.forEach(product => {
             const productId = product.fields.productID;
             const priceExVAT = product.fields['Price Excl VAT'];
             const priceIncVAT = product.fields['Price Incl VAT'];
             const quantityDiscount = product.fields['quantityDiscount'] || 1; // Default to 1 if not specified
+            const allowance = product.fields['Allowance'] || 0; // Default allowance to 0 if not specified
 
             const count = parseInt(localStorage.getItem(`count-${productId}`)) || 0;
 
-            if (count > 1) {
-                // Apply base price for the first unit and quantity discount for additional units
-                totalExVAT += priceExVAT + (count - 1) * priceExVAT * quantityDiscount;
-                totalIncVAT += priceIncVAT + (count - 1) * priceIncVAT * quantityDiscount;
-            } else if (count === 1) {
-                // Just add the base price
-                totalExVAT += priceExVAT;
-                totalIncVAT += priceIncVAT;
+            if (count > allowance) {
+                const additionalCount = count - allowance;
+
+                if (additionalCount > 1) {
+                    // Apply base price for the first unit over the allowance and quantity discount for additional units
+                    totalExVAT += priceExVAT + (additionalCount - 1) * priceExVAT * quantityDiscount;
+                    totalIncVAT += priceIncVAT + (additionalCount - 1) * priceIncVAT * quantityDiscount;
+                } else if (additionalCount === 1) {
+                    // Just add the base price for one unit over the allowance
+                    totalExVAT += priceExVAT;
+                    totalIncVAT += priceIncVAT;
+                }
             }
         });
 
@@ -196,6 +201,7 @@ async function calculateTotals() {
         console.error('Error fetching or calculating totals:', error);
     }
 }
+
 
 // Function to update the displayed total
 function updateDisplayedTotal() {
