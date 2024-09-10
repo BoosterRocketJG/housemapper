@@ -50,16 +50,18 @@ function updateVATDisplay(vatState) {
     const vatRocker = document.querySelector('.vat-rocker');
     const toggleSlot = document.querySelector('.toggle-slot');
 
-    if (vatRocker) {
-        vatRocker.textContent = (vatState === 'inc-VAT') ? 'On' : 'Off';
+    // Find the element inside .vat-rocker that holds the text
+    const vatRockerText = vatRocker ? vatRocker.querySelector('.vat-rocker-text') : null;
+
+    if (vatRockerText) {
+        vatRockerText.textContent = vatState === 'inc-VAT' ? 'On' : 'Off';
     }
 
     if (toggleSlot) {
-        // Use a single operation to set the correct class
+        // Set the className to ensure proper class addition/removal
         toggleSlot.className = `toggle-slot ${vatState === 'inc-VAT' ? 'on' : 'off'}`;
     }
 }
-
 
 // Function to update prices based on the current VAT state
 async function updatePricesFromJSON() {
