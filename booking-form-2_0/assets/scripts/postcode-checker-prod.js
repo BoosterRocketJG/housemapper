@@ -3,20 +3,50 @@ document.addEventListener('DOMContentLoaded', () => {
     let approvedPostcodes = [];
     let validationMessages = {};
 
+    // Fetch approved postcodes
     fetch('https://assets.housemapper.co.uk/booking-form-2_0/assets/data/approved-postcodes.json')
-        .then(response => response.json())
+        .then(response => {
+            console.log('Response Status:', response.status); // Debugging: Check the response status
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
-            approvedPostcodes = data;
-        });
+            console.log('Fetched Postcodes:', data); // Debugging: Log fetched data
 
+            // Check if the fetched data is an array
+            if (Array.isArray(data)) {
+                approvedPostcodes = data; // Assign data if it's a valid array
+                console.log('Approved Postcodes is an array:', approvedPostcodes); // Confirm it is an array
+            } else {
+                console.error('Error: Expected an array but got', typeof data, data); // Log if data is not an array
+            }
+        })
+        .catch(error => console.error('Error fetching approved postcodes:', error));
+
+    // Fetch validation messages
     fetch('https://assets.housemapper.co.uk/booking-form-2_0/assets/data/validation-messages.json')
-        .then(response => response.json())
+        .then(response => {
+            console.log('Validation Messages Response Status:', response.status); // Debugging: Check the response status
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
+            // Correctly extract the messages from the JSON array
             validationMessages = data.reduce((acc, item) => {
-                acc[item.fields.MessageName] = item.fields.Message;
+                const messageName = item.fields["Message Name"];
+                const messageContent = item.fields.Message;
+                if (messageName && messageContent) {
+                    acc[messageName] = messageContent;
+                }
                 return acc;
             }, {});
-        });
+            console.log('Fetched Validation Messages:', validationMessages); // Debugging: Log fetched data
+        })
+        .catch(error => console.error('Error fetching validation messages:', error));
 
     const postcodeInput = document.getElementById('postcode-area');
     const postcodeClear = document.getElementById('postcodeClear');
@@ -28,11 +58,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const showStubCheckButton = () => {
         stubCheckButton.classList.remove('hidden');
         stubCheckButton.classList.remove('disabled');
+        console.log('Stub Check Button shown'); // Debugging: Log button state
     };
 
     const hideStubCheckButton = () => {
         stubCheckButton.classList.add('hidden');
         stubCheckButton.classList.add('disabled');
+        console.log('Stub Check Button hidden'); // Debugging: Log button state
     };
 
     const responseTextUpdate = (hidden, message, cssClass) => {
@@ -41,8 +73,9 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             responseElement.classList.remove('hidden');
         }
-        responseElement.textContent = message;
-        responseElement.className = `postcode-check-response ${cssClass}`;
+        responseElement.textContent = message || ''; // Ensure no undefined message
+        responseElement.className = `paragraph postcode-check-response ${cssClass}`;
+        console.log('Response Text Updated:', message); // Debugging: Log response text
     };
 
     const postcodeTooLong = () => {
@@ -51,14 +84,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const areaServed = () => {
         responseTextUpdate(false, validationMessages['exactMatch'], 'success');
+        postcodeProgress.classList.remove('hidden');
         postcodeProgress.classList.remove('disabled');
         hideStubCheckButton();
+        console.log('Area served'); // Debugging: Log state change
     };
 
     const areaNotServed = () => {
         responseTextUpdate(false, validationMessages['noCoverage'], 'error');
         postcodeProgress.classList.add('disabled');
         hideStubCheckButton();
+        console.log('Area not served'); // Debugging: Log state change
     };
 
     // On pageload, check localStorage for saved postcode
@@ -88,6 +124,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // Update the input field with the cleaned value
         event.target.value = input;
 
+        // Store the full postcode in localStorage every time it changes
+        localStorage.setItem('postcode', input);
+        console.log('Updated postcode stored in local storage:', input); // Debugging: Log updated value
+
         // Check conditions for showing/hiding stubCheck button
         if (input.length > 8) {
             postcodeTooLong();
@@ -103,26 +143,65 @@ document.addEventListener('DOMContentLoaded', () => {
         postcodeInput.value = '';
         localStorage.removeItem('postcode');
         hideStubCheckButton();
+        postcodeProgress.classList.add('hidden');
         postcodeProgress.classList.add('disabled');
         responseTextUpdate(true, '', '');
+        console.log('Postcode cleared'); // Debugging: Log clear action
     });
 
     // Stub check button functionality
     stubCheckButton.addEventListener('click', () => {
         const input = postcodeInput.value.trim();
+        console.log('Original input:', input); // Debugging: Log original input
+
+        // Format input and save to localStorage
         if (!/\s/.test(input) && input.length >= 5) {
             const formattedInput = input.slice(0, -3) + ' ' + input.slice(-3);
             postcodeInput.value = formattedInput;
             localStorage.setItem('postcode', formattedInput);
-            localStorage.setItem('postcodeStub', formattedInput.split(' ')[0]);
+            console.log('Formatted input stored in local storage:', formattedInput); // Debugging: Log formatted value
+        } else {
+            console.warn('Input did not meet the criteria for formatting and storage'); // Debugging: Warn if input does not meet criteria
         }
 
-        const postcodeStub = localStorage.getItem('postcodeStub');
-        if (approvedPostcodes.includes(postcodeStub)) {
+        // Extract postcode stub from the formatted input
+        const postcodeStub = postcodeInput.value.split(' ')[0]; // Get only the part before the whitespace
+        localStorage.setItem('postcodeStub', postcodeStub);
+        console.log('Checking postcode stub:', postcodeStub); // Debugging: Log postcode stub
+
+        // Check if postcode stub exists in approved postcodes
+        if (postcodeStub && Array.isArray(approvedPostcodes) && approvedPostcodes.includes(postcodeStub)) {
             areaServed();
         } else {
             areaNotServed();
         }
+
+        // Submit the postcode stub to the API
+        console.log('Preparing to submit API request with postcodeStub:', postcodeStub); // Debugging: Log before API call
+        fetch('https://02sfka.buildship.run/stub', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ postcodeStub: postcodeStub }), // Send the stub as JSON
+        })
+        .then(response => {
+            console.log('API response received:', response); // Debugging: Log raw response
+    
+            // Check if the response is JSON
+            const contentType = response.headers.get('content-type');
+            if (contentType && contentType.includes('application/json')) {
+                return response.json(); // Parse as JSON
+            } else {
+                return response.text(); // Parse as plain text
+            }
+        })
+        .then(data => {
+            console.log('Successfully submitted:', data); // Debugging: Log successful response
+        })
+        .catch(error => {
+            console.error('Error submitting to the API:', error); // Debugging: Log any errors
+        });
     });
 
     // Submit progress button functionality
