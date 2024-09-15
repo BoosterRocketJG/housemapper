@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const postcodeInput = document.getElementById("postcode-area");
   const postcodeClear = document.getElementById("postcodeClear");
   const stubCheckButton = document.getElementById("stubCheck");
-  const postcodeProgress = document.getElementById("postcode-progress");
+  const typeformButton = document.getElementById("typeform-button-embed");
   const responseElement = document.getElementById("postcode-check-response");
 
   // Helper functions
@@ -92,15 +92,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const areaServed = () => {
     responseTextUpdate(false, validationMessages["exactMatch"], "success");
-    postcodeProgress.classList.remove("hidden");
-    postcodeProgress.classList.remove("disabled");
+    typeformButton.classList.remove("hidden");
+    typeformButton.classList.remove("disabled");
     hideStubCheckButton();
     console.log("Area served"); // Debugging: Log state change
   };
 
   const areaNotServed = () => {
     responseTextUpdate(false, validationMessages["noCoverage"], "error");
-    postcodeProgress.classList.add("disabled");
+    typeformButton.classList.add("disabled");
     hideStubCheckButton();
     console.log("Area not served"); // Debugging: Log state change
   };
@@ -156,8 +156,8 @@ document.addEventListener("DOMContentLoaded", () => {
     postcodeInput.value = "";
     localStorage.removeItem("postcode");
     hideStubCheckButton();
-    postcodeProgress.classList.add("hidden");
-    postcodeProgress.classList.add("disabled");
+    typeformButton.classList.add("hidden");
+    typeformButton.classList.add("disabled");
     responseTextUpdate(true, "", "");
     console.log("Postcode cleared"); // Debugging: Log clear action
   });
@@ -227,8 +227,8 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Submit progress button functionality
-  postcodeProgress.addEventListener("click", (event) => {
-    if (postcodeProgress.classList.contains("disabled")) {
+  typeformButton.addEventListener("click", (event) => {
+    if (typeformButton.classList.contains("disabled")) {
       event.preventDefault();
     }
   });
