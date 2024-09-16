@@ -46,9 +46,12 @@
             scroll-behavior: smooth;
         }
     </style>
-    <style>button[data-tf-popup] {
-        font-family: 'Urbanist 500' !important;letter-spacing: 0.1em !important;
-    }</style>
+    <style>
+        button[data-tf-popup] {
+            font-family: 'Urbanist 500' !important;
+            letter-spacing: 0.1em !important;
+        }
+    </style>
     <!-- End smooth scrolling -->
     <script defer src="https://cdn.jsdelivr.net/gh/boosterrocketJG/housemapper/postcode-checker.html">
     </script>
@@ -68,8 +71,7 @@
 <body>
     <section id="pricing" class="pricing-section">
         <div class="javascript w-embed w-script">
-            <script type='text/javascript'
-                src='/booking-form-2_0/assets/scripts/postcode-checker-prod.js'></script>
+            <script type='text/javascript' src='/booking-form-2_0/assets/scripts/postcode-checker-prod.js'></script>
             <script type='text/javascript'
                 src='https://assets.housemapper.co.uk/pricing-calculator/product-interactions.js'></script>
         </div>
@@ -118,10 +120,14 @@
                                             <div id="vat-toggle-btn" class="toggle-rocker">Off</div>
                                         </div>
                                     </div>
-                                  <!-- --------------------------- Typeform button --------------------------- -->
+                                    <!-- --------------------------- Typeform button --------------------------- -->
                                     <script src="//embed.typeform.com/next/embed.js"></script>
-                                        <div data-tf-live="01J7V74N825YQSFAA8TG0F6MHR" id="typeform-button" class="typeform-button-inner" style="font-family:;display:inline-block;max-width:100%;text-transform:uppercase;overflow:hidden;text-overflow:ellipsis;background-color:#0a464b;color:#f3f3f3;font-size:16px;letter-spacing:0.08em;border-radius:20px;padding:0 25px;font-weight:bold;height:45px;cursor:pointer;line-height:45px;text-align:center;margin:0;text-decoration:none;"></div><script src="//embed.typeform.com/next/embed.js"></script>
-                                  <!-- --------------------------- Typeform button ends --------------------------- -->
+                                    <div data-tf-live="01J7V74N825YQSFAA8TG0F6MHR" id="typeform-button"
+                                        class="typeform-button-inner"
+                                        style="font-family:;display:inline-block;max-width:100%;text-transform:uppercase;overflow:hidden;text-overflow:ellipsis;background-color:#0a464b;color:#f3f3f3;font-size:16px;letter-spacing:0.08em;border-radius:20px;padding:0 25px;font-weight:bold;height:45px;cursor:pointer;line-height:45px;text-align:center;margin:0;text-decoration:none;">
+                                    </div>
+                                    <script src="//embed.typeform.com/next/embed.js"></script>
+                                    <!-- --------------------------- Typeform button ends --------------------------- -->
 
                                     <div class="price-card-line"></div><a id="quote-book-btn" href="#booking"
                                         class="button-primary w-button">Book Now</a>
@@ -146,33 +152,52 @@
                                         have a particularly big job elsewhere in the UK, please get in touch and we may
                                         be able to visit outside our normal service area.</div>
                                     <div class="price-card-line"></div>
-                                    <!--Manual HTML Starts-->
-                                    <label for="postcode-area">Postcode</label>
-                                    <div class="w-layout-hflex">
-                                        <input class="short-text-input postcode-input w-input" maxlength="8"
-                                            name="postcode-area" placeholder="e.g. AB3 4CD" type="text"
-                                            id="postcode-area" required="">
-                                        <button id="postcodeClear" class="clear-postcode w-button">x</button>
+                                    <!-- ----------------------------------------------------------------------- -->
+                                    <!--                            Manual HTML Start                            -->
+                                    <!-- ----------------------------------------------------------------------- -->
+                                    <div id="checker-wrapper">
+                                        <div class="w-form">
+                                            <form id="wf-form-Postcode-Area-Check" name="wf-form-Postcode-Area-Check"
+                                                data-name="Postcode Area Check" action="https://02sfka.buildship.run/"
+                                                method="post" data-wf-page-id="66995a4d49b2ec828804bb26"
+                                                data-wf-element-id="dbdaf533-f2be-2eea-4e1f-2a6d63a0ca3d"
+                                                aria-label="Postcode Area Check" data-gtm-form-interact-id="0"><label
+                                                    for="postcode-area-2">Postcode</label>
+                                                <div class="w-layout-hflex"><input
+                                                        class="short-text-input postcode-input w-input" maxlength="256"
+                                                        name="postcode-area-2" data-name="Postcode Area 2"
+                                                        placeholder="e.g. AB3 4CD" type="text" id="postcode-area"
+                                                        required="" data-gtm-form-interact-field-id="0"><a
+                                                        id="postcodeClear" href="#"
+                                                        class="clear-postcode w-button">x</a></div>
+                                            </form>
+                                            <div class="w-layout-vflex postcode-button-wrapper">
+                                                <div id="postcode-check-response"
+                                                    class="paragraph postcode-check-response">Full plans of all your
+                                                    property, fully measured, to scale, in .pdf format.</div><a
+                                                    id="stubCheck" href="#"
+                                                    class="button-secondary postcode-check w-button">Button Text</a>
+                                                <div id="typeform-button"
+                                                    class="typeform-button-inner w-embed w-script">
+                                                    <script src="//embed.typeform.com/next/embed.js"></script>
+                                                    <div data-tf-live="01J7V74N825YQSFAA8TG0F6MHR"
+                                                        class="typeform-button-inner"
+                                                        style="display:inline-block;max-width:100%;text-transform:uppercase;overflow:hidden;text-overflow:ellipsis;background-color:#0a464b;color:#f3f3f3;font-size:16px;letter-spacing:0.08em;border-radius:20px;padding:0 25px;font-weight:bold;height:45px;cursor:pointer;line-height:45px;text-align:center;margin:0;text-decoration:none;"
+                                                        data-tf-loaded="true"><button data-tf-popup="kRmaMkMC"
+                                                            data-tf-opacity="100" data-tf-size="100"
+                                                            data-tf-iframe-props="title=HouseMapper Booking Form"
+                                                            data-tf-auto-close="" data-tf-transitive-search-params=""
+                                                            data-tf-medium="snippet"
+                                                            data-tf-hidden="first_name=,last_name=,mobile=,landline=,home_type=,commercial_site_type=,scan_date=,scan_time="
+                                                            style="all:unset;font-family:Helvetica,Arial,sans-serif;display:inline-block;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background-color:#0A464B;color:#fff;font-size:16px;border-radius:16px;padding:0 26px;font-weight:bold;height:40px;cursor:pointer;line-height:40px;text-align:center;margin:0;text-decoration:none;"
+                                                            data-tf-loaded="true">Book now</button></div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-
-                                    <!-- Response Message -->
-                                    <div id="postcode-check-response" class="paragraph postcode-check-response hidden">
-                                        <!-- Response messages will be updated dynamically by JavaScript -->
-                                    </div>
-
-                                    <!-- Buttons for Checking and Submission -->
-                                    <div class="w-layout-vflex"
-                                        style="display: flex; flex-direction: column; align-items: flex-start;">
-                                        <button id="stubCheck"
-                                            class="button-secondary postcode-check w-button disabled">Check
-                                            Coverage</button>
-                                        <button id="postcode-progress"
-                                            class="button-secondary w-button hidden">Next</button>
-                                    </div>
-                                    <section class="section-8"><div class="max-width-wrapper"><div id="checker-wrapper"><div class="w-form"><form id="wf-form-Postcode-Area-Check" name="wf-form-Postcode-Area-Check" data-name="Postcode Area Check" action="https://02sfka.buildship.run/" method="post" data-wf-page-id="66995a4d49b2ec828804bb26" data-wf-element-id="dbdaf533-f2be-2eea-4e1f-2a6d63a0ca3d" aria-label="Postcode Area Check" data-gtm-form-interact-id="0"><label for="postcode-area-2">Postcode</label><div class="w-layout-hflex"><input class="short-text-input postcode-input w-input" maxlength="256" name="postcode-area-2" data-name="Postcode Area 2" placeholder="e.g. AB3 4CD" type="text" id="postcode-area" required="" data-gtm-form-interact-field-id="0"><a id="postcodeClear" href="#" class="clear-postcode w-button">x</a></div></form><div class="w-layout-vflex postcode-button-wrapper"><div class="paragraph postcode-check-response">Full plans of all your property, fully measured, to scale, in .pdf format.</div><a id="stubCheck" href="#" class="button-secondary postcode-check w-button">Button Text</a><a id="postcode-progress" href="#" class="button-secondary hidden w-button">Button Text</a><div id="typeform-button" class="typeform-button-inner w-embed w-script"><script src="//embed.typeform.com/next/embed.js"></script>
-                                        <div data-tf-live="01J7V74N825YQSFAA8TG0F6MHR" class="typeform-button-inner" style="display:inline-block;max-width:100%;text-transform:uppercase;overflow:hidden;text-overflow:ellipsis;background-color:#0a464b;color:#f3f3f3;font-size:16px;letter-spacing:0.08em;border-radius:20px;padding:0 25px;font-weight:bold;height:45px;cursor:pointer;line-height:45px;text-align:center;margin:0;text-decoration:none;" data-tf-loaded="true"><button data-tf-popup="kRmaMkMC" data-tf-opacity="100" data-tf-size="100" data-tf-iframe-props="title=HouseMapper Booking Form" data-tf-auto-close="" data-tf-transitive-search-params="" data-tf-medium="snippet" data-tf-hidden="first_name=,last_name=,mobile=,landline=,home_type=,commercial_site_type=,scan_date=,scan_time=" style="all:unset;font-family:Helvetica,Arial,sans-serif;display:inline-block;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background-color:#0A464B;color:#fff;font-size:16px;border-radius:16px;padding:0 26px;font-weight:bold;height:40px;cursor:pointer;line-height:40px;text-align:center;margin:0;text-decoration:none;" data-tf-loaded="true">Book now</button></div></div></div></div></div></div></section>
-
-                                    <!--Manual HTML Ends-->
+                                    <!-- ----------------------------------------------------------------------- -->
+                                    <!--                            Manual HTML Ends                             -->
+                                    <!-- ----------------------------------------------------------------------- -->
                                 </div>
                             </div>
                         </div>
