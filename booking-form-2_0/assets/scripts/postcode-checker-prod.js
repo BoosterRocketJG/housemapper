@@ -1,5 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Fetch the approved postcodes and validation messages on initialization
+    // Define valid patterns based on new requirements
+    const patterns = [
+      /^[A-Za-z]\d\s\d[A-Za-z]{2}$/,       // Pattern for ansnaa (e.g., "A1 BCD")
+      /^[A-Za-z]{2}\d\s\d[A-Za-z]{2}$/,    // Pattern for aansnaa (e.g., "AB1 CDE")
+      /^[A-Za-z]\d{2}\s\d[A-Za-z]{2}$/,    // Pattern for annsnaa (e.g., "A12 DEF")
+      /^[A-Za-z]{2}\d{2}\s\d[A-Za-z]{2}$/  // Pattern for aannsnaa (e.g., "AB12 GHI")
+    ];
+  
     let approvedPostcodes = [];
     let validationMessages = {};
   
@@ -83,13 +90,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const showStubCheckButton = () => {
       stubCheckButton.classList.remove("hidden");
       stubCheckButton.classList.remove("disabled");
-      console.log("Stub Check Button shown"); // Debugging: Log button state
     };
   
     const hideStubCheckButton = () => {
       stubCheckButton.classList.add("hidden");
       stubCheckButton.classList.add("disabled");
-      console.log("Stub Check Button hidden"); // Debugging: Log button state
     };
   
     const responseTextUpdate = (hidden, message, cssClass) => {
@@ -98,9 +103,8 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         responseElement.classList.remove("hidden");
       }
-      responseElement.textContent = message || ""; // Ensure no undefined message
+      responseElement.textContent = message || "";
       responseElement.className = `paragraph postcode-check-response ${cssClass}`;
-      console.log("Response Text Updated:", message); // Debugging: Log response text
     };
   
     const postcodeTooLong = () => {
@@ -112,14 +116,12 @@ document.addEventListener("DOMContentLoaded", () => {
       typeformButton.classList.remove("hidden");
       typeformButton.classList.remove("disabled");
       hideStubCheckButton();
-      console.log("Area served"); // Debugging: Log state change
     };
   
     const areaNotServed = () => {
       responseTextUpdate(false, validationMessages["noCoverage"], "error");
       typeformButton.classList.add("disabled");
       hideStubCheckButton();
-      console.log("Area not served"); // Debugging: Log state change
     };
   
     // On pageload, check localStorage for saved postcode
@@ -129,55 +131,49 @@ document.addEventListener("DOMContentLoaded", () => {
       showStubCheckButton();
     }
   
-   // Input field restrictions and checks
-postcodeInput.addEventListener("input", (event) => {
-    let input = event.target.value.toUpperCase();
-
-    // Restrict input to alphanumeric characters and spaces
-    input = input.replace(/[^A-Z0-9\s]/g, "");
-
-    // If a whitespace already exists, remove any additional whitespace
-    const firstWhitespaceIndex = input.indexOf(" ");
-    if (firstWhitespaceIndex !== -1) {
+    // Input field restrictions and checks
+    postcodeInput.addEventListener("input", (event) => {
+      let input = event.target.value.toUpperCase(); // Convert to uppercase
+  
+      // Restrict input to alphanumeric characters and spaces
+      input = input.replace(/[^A-Z0-9\s]/g, "");
+  
+      // If a whitespace already exists, remove any additional whitespace
+      const firstWhitespaceIndex = input.indexOf(" ");
+      if (firstWhitespaceIndex !== -1) {
         input =
-            input.substring(0, firstWhitespaceIndex + 1) +
-            input.substring(firstWhitespaceIndex + 1).replace(/\s/g, "");
-    }
-
-    // Ensure no leading whitespace and limit to 8 characters total
-    input = input.replace(/^\s/, "").slice(0, 8);
-
-    event.target.value = input;
-    localStorage.setItem("postcode", input);
-
-    // Check for specific format: [space][Number][Letter][Letter]
-    const validFormat = /\s\d[A-Z]{2}$/; // Regular expression to match "space, digit, letter, letter"
-
-    // Check for invalid format: [space][letter]
-    const invalidFormat = /\s[A-Z]$/; // Regular expression to match "space, letter"
-
-    if (invalidFormat.test(input)) {
-        // Show the invalid postcode message if input matches the invalid format
-        responseTextUpdate(false, validationMessages["invalidPostcode"], "error");
+          input.substring(0, firstWhitespaceIndex + 1) +
+          input.substring(firstWhitespaceIndex + 1).replace(/\s/g, "");
+      }
+  
+      // Ensure no leading whitespace and limit to 8 characters total
+      input = input.replace(/^\s/, "").slice(0, 8);
+  
+      event.target.value = input;
+      localStorage.setItem("postcode", input);
+  
+      // Check if input matches any of the valid patterns
+      const isValid = patterns.some((pattern) => pattern.test(input));
+  
+      if (isValid) {
+        // Clear the warning message if the input matches any pattern
+        responseTextUpdate(true, "", "");
+        showStubCheckButton();
+      } else {
+        // Show the warning message if input deviates from all patterns
+        responseTextUpdate(
+          false,
+          validationMessages["invalidPostcode"],
+          "error"
+        );
         hideStubCheckButton();
-    } else {
-        // Hide the invalid message if the [space][letter] combination is no longer present
-        responseTextUpdate(true, '', '');
-
-        if (input.length > 8) {
-            // If input is too long, show the "too long" message
-            postcodeTooLong();
-        } else if (validFormat.test(input)) {
-            // If the input matches the valid format, show the button
-            showStubCheckButton();
-        } else {
-            // Hide the button if input is incomplete
-            hideStubCheckButton();
-        }
-    }
-});
-
-
+      }
+  
+      // Further checks based on input length
+      if (input.length > 8) {
+        postcodeTooLong();
+      }
+    });
   
     // Clear button functionality
     postcodeClear.addEventListener("click", () => {
@@ -187,7 +183,6 @@ postcodeInput.addEventListener("input", (event) => {
       typeformButton.classList.add("hidden");
       typeformButton.classList.add("disabled");
       responseTextUpdate(true, "", "");
-      console.log("Postcode cleared"); // Debugging: Log clear action
     });
   
     // Stub check button functionality
@@ -200,15 +195,13 @@ postcodeInput.addEventListener("input", (event) => {
         const formattedInput = input.slice(0, -3) + " " + input.slice(-3);
         postcodeInput.value = formattedInput;
         localStorage.setItem("postcode", formattedInput);
-        console.log("Formatted input stored in local storage:", formattedInput); // Debugging: Log formatted value
       } else {
-        console.warn("Input did not meet the criteria for formatting and storage"); // Debugging: Warn if input does not meet criteria
+        console.warn("Input did not meet the criteria for formatting and storage");
       }
   
       // Extract postcode stub from the formatted input
       const postcodeStub = postcodeInput.value.split(" ")[0]; // Get only the part before the whitespace
       localStorage.setItem("postcodeStub", postcodeStub);
-      console.log("Checking postcode stub:", postcodeStub); // Debugging: Log postcode stub
   
       // Check if postcode stub exists in approved postcodes
       if (
@@ -222,30 +215,26 @@ postcodeInput.addEventListener("input", (event) => {
       }
   
       // Submit the postcode stub to the API
-      console.log("Preparing to submit API request with postcodeStub:", postcodeStub); // Debugging: Log before API call
       fetch("https://02sfka.buildship.run/forms/?Form-Version=Stub", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ postcodeStub: postcodeStub }), // Replace 'NW6' with dynamic stub if needed
+        body: JSON.stringify({ postcodeStub: postcodeStub }),
       })
         .then((response) => {
-          console.log("API response received:", response); // Debugging: Log raw response
-  
-          // Check if the response is JSON
           const contentType = response.headers.get("content-type");
           if (contentType && contentType.includes("application/json")) {
-            return response.json(); // Parse as JSON
+            return response.json();
           } else {
-            return response.text(); // Parse as plain text
+            return response.text();
           }
         })
         .then((data) => {
-          console.log("Successfully submitted:", data); // Debugging: Log successful response
+          console.log("Successfully submitted:", data);
         })
         .catch((error) => {
-          console.error("Error submitting to the API:", error); // Debugging: Log any errors
+          console.error("Error submitting to the API:", error);
         });
     });
   
