@@ -131,12 +131,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const hideStubCheckButton = () => {
         stubCheckButton.classList.add("hidden");
-        disableEnterKey(); // Disable Enter key functionality when the button is hidden
       };
 
-      const hideStubCheckButton = () => {
-        stubCheckButton.classList.add("hidden");
-      };
 
       const responseTextUpdate = (hidden, message, cssClass) => {
         if (hidden) {
@@ -170,23 +166,6 @@ document.addEventListener("DOMContentLoaded", () => {
         responseTextUpdate(false, message, "error");
         typeformButtonContainer.classList.add("hidden"); // Hide Typeform Button Container
         hideStubCheckButton();
-      };
-
-      // Function to handle the Enter key press
-      const handleEnterKey = (event) => {
-        if (event.key === "Enter") {
-          event.preventDefault(); // Prevent form submission
-
-          // Trigger the "Check Postcode" button functionality
-          const input = postcodeInput.value.trim();
-
-          // Validate the postcode (use your existing validation logic)
-          if (isPostcodeValid(input)) {
-            stubCheckButton.click(); // Simulate a click on the "Check Postcode" button
-          } else {
-            console.log("Invalid postcode"); // Optionally show an error message or do nothing
-          }
-        }
       };
 
       // On page load, check localStorage for saved postcode
