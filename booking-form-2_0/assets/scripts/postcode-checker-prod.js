@@ -16,7 +16,15 @@ document.addEventListener("DOMContentLoaded", () => {
     /^[A-Za-z]{1,2}\d{1,2}\s\d[A-Za-z]{0,2}$/ // Matches "A1 2A", "AB12 3CD", etc.
   ];
 
+  // Add the "Enter" key disabling logic for the postcode input
+  const postcodeInput = document.getElementById("postcode-area");
 
+  // Disable the "Enter" key for the postcode input field
+  postcodeInput.addEventListener("keydown", function(event) {
+    if (event.key === 'Enter') {
+      event.preventDefault(); // Prevent the default form submission on "Enter"
+    }
+  });
 
   let approvedPostcodes = [];
   let validationMessages = {};
@@ -124,7 +132,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const hideStubCheckButton = () => {
         stubCheckButton.classList.add("hidden");
       };
-
 
       const responseTextUpdate = (hidden, message, cssClass) => {
         if (hidden) {
