@@ -6,7 +6,14 @@ document.addEventListener("DOMContentLoaded", () => {
     /^[A-Za-z]\d{2}\s\d[A-Za-z]{2}$/, // Pattern for annsnaa (e.g., "A12 DEF")
     /^[A-Za-z]{2}\d{2}\s\d[A-Za-z]{2}$/, // Pattern for aannsnaa (e.g., "AB12 GHI")
   ];
-
+   const postcodeInput = document.getElementById("postcode-area"); // Postcode input field
+    // Disable the "Enter" key for the postcode input field
+    postcodeInput.addEventListener("keydown", function(event) {
+      if (event.key === 'Enter') {
+        event.preventDefault(); // Prevent the default form submission on "Enter"
+      }
+    });
+  });
   // Define partial patterns to match potential valid postcodes
   const partialPatterns = [
     /^[A-Za-z]{1,2}$/, // Matches "A" or "AB"
