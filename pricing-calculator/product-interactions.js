@@ -8,17 +8,17 @@ document.addEventListener('DOMContentLoaded', () => {
     updateDisplayedTotal(); // Display the correct total
 });
 
-// Function to initialize base product counts to 1 in localStorage
+// Function to initialize base product counts to 1 in sessionStorage
 function initializeBaseProductCounts() {
     const baseProducts = ['baseScan', 'pdfPlans', 'virtualTour'];
 
     baseProducts.forEach(productId => {
         // Always set count to 1 for base products
-        localStorage.setItem(`count-${productId}`, 1);
+        sessionStorage.setItem(`count-${productId}`, 1);
     });
 }
 
-// Function to initialize product counts from localStorage
+// Function to initialize product counts from sessionStorage
 function initializeProductCounts() {
     const products = document.querySelectorAll('[id^="count-"], [id^="add-"]');
 
@@ -30,7 +30,7 @@ function initializeProductCounts() {
             return;
         }
 
-        const count = parseInt(localStorage.getItem(`count-${productId}`)) || 0;
+        const count = parseInt(sessionStorage.getItem(`count-${productId}`)) || 0;
 
         if (product.id.startsWith('count-')) {
             // Initialize count for unlimited products
@@ -82,21 +82,21 @@ function setupResetButtonEventListener() {
 // Handle increment button click for unlimited products
 function handleIncrement(button) {
     const productId = button.id.split('-')[1];
-    let count = parseInt(localStorage.getItem(`count-${productId}`)) || 0;
+    let count = parseInt(sessionStorage.getItem(`count-${productId}`)) || 0;
 
     count++;
-    localStorage.setItem(`count-${productId}`, count);
+    sessionStorage.setItem(`count-${productId}`, count);
     updateUnlimitedProductUI(productId, count);
 }
 
 // Handle decrement button click for unlimited products
 function handleDecrement(button) {
     const productId = button.id.split('-')[1];
-    let count = parseInt(localStorage.getItem(`count-${productId}`)) || 0;
+    let count = parseInt(sessionStorage.getItem(`count-${productId}`)) || 0;
 
     if (count > 0) {
         count--;
-        localStorage.setItem(`count-${productId}`, count);
+        sessionStorage.setItem(`count-${productId}`, count);
         updateUnlimitedProductUI(productId, count);
     }
 }
@@ -104,21 +104,21 @@ function handleDecrement(button) {
 // Handle toggle button click for limited products
 function handleLimitedProductToggle(button) {
     const productId = button.id.split('-')[1];
-    let count = parseInt(localStorage.getItem(`count-${productId}`)) || 0;
+    let count = parseInt(sessionStorage.getItem(`count-${productId}`)) || 0;
 
     // Toggle count between 0 and 1
     count = count === 0 ? 1 : 0;
-    localStorage.setItem(`count-${productId}`, count);
+    sessionStorage.setItem(`count-${productId}`, count);
     updateLimitedProductUI(productId, count);
 }
 
 // Handle reset button click
 function handleResetButtonClick() {
-    // Get all keys from localStorage
-    Object.keys(localStorage).forEach(key => {
+    // Get all keys from sessionStorage
+    Object.keys(sessionStorage).forEach(key => {
         // Clear counts for all products except baseScan, pdfPlans, and virtualTour
         if (key.startsWith('count-') && !['count-baseScan', 'count-pdfPlans', 'count-virtualTour'].includes(key)) {
-            localStorage.removeItem(key);
+            sessionStorage.removeItem(key);
         }
     });
 
@@ -158,7 +158,7 @@ function updateLimitedProductUI(productId, count) {
     }
 }
 
-// Function to calculate totals with and without VAT and store them in localStorage
+// Function to calculate totals with and without VAT and store them in sessionStorage
 async function calculateTotals() {
     try {
         const response = await fetch('https://assets.housemapper.co.uk/hmProducts.json');
@@ -174,7 +174,7 @@ async function calculateTotals() {
             const quantityDiscount = product.fields['quantityDiscount'] || 1; // Default to 1 if not specified
             const allowance = product.fields['Allowance'] || 0; // Default allowance to 0 if not specified
 
-            const count = parseInt(localStorage.getItem(`count-${productId}`)) || 0;
+            const count = parseInt(sessionStorage.getItem(`count-${productId}`)) || 0;
 
             if (count > allowance) {
                 const additionalCount = count - allowance;
@@ -191,9 +191,9 @@ async function calculateTotals() {
             }
         });
 
-        // Store both totals in localStorage
-        localStorage.setItem('totalExVAT', totalExVAT.toFixed(2));
-        localStorage.setItem('totalIncVAT', totalIncVAT.toFixed(2));
+        // Store both totals in sessionStorage
+        sessionStorage.setItem('totalExVAT', totalExVAT.toFixed(2));
+        sessionStorage.setItem('totalIncVAT', totalIncVAT.toFixed(2));
 
         // Update the displayed totals
         updateDisplayedTotal();
@@ -205,9 +205,9 @@ async function calculateTotals() {
 
 // Function to update the displayed total
 function updateDisplayedTotal() {
-    const vatState = localStorage.getItem('vatState');
-    const totalExVAT = localStorage.getItem('totalExVAT') || '0.00';
-    const totalIncVAT = localStorage.getItem('totalIncVAT') || '0.00';
+    const vatState = sessionStorage.getItem('vatState');
+    const totalExVAT = sessionStorage.getItem('totalExVAT') || '0.00';
+    const totalIncVAT = sessionStorage.getItem('totalIncVAT') || '0.00';
 
     // Update the total in #total-quote
     const totalElement = document.getElementById('total-quote');
@@ -242,8 +242,8 @@ async function displaySteppedPricing() {
     }
 }
 function updateResetButtonState() {
-    const totalExVAT = localStorage.getItem('totalExVAT') || '0.00';
-    const totalIncVAT = localStorage.getItem('totalIncVAT') || '0.00';
+    const totalExVAT = sessionStorage.getItem('totalExVAT') || '0.00';
+    const totalIncVAT = sessionStorage.getItem('totalIncVAT') || '0.00';
     const resetButton = document.getElementById('reset-button');
 
     if (resetButton) {
