@@ -126,7 +126,6 @@ document.addEventListener("DOMContentLoaded", () => {
       // Helper functions
       const showStubCheckButton = () => {
         stubCheckButton.classList.remove("hidden");
-        enableEnterKey(); // Enable Enter key functionality when the button is shown
       };
 
       const hideStubCheckButton = () => {
